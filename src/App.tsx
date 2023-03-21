@@ -5,6 +5,8 @@ import WomenProducts from './WomenProducts'
 import AboutUs from './AboutUs'
 import ContactPage from './ContactPage'
 import Cart from './Cart'
+import AddressPage from './AddressPage'
+import PaymentPage from './PaymentPage'
 
 
 function App() {
@@ -12,7 +14,9 @@ function App() {
   return (
     <>
       <Header />
-      <Cart />
+      {/* <PaymentPage /> */}
+      <AddressPage />
+      {/* <Cart /> */}
       {/* <ContactPage /> */}
       {/* <AboutUs /> */}
       {/* <WomenProducts /> */}
