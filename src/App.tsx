@@ -7,6 +7,7 @@ import ContactPage from './ContactPage'
 import Cart from './Cart'
 import AddressPage from './AddressPage'
 import PaymentPage from './PaymentPage'
+import OrderPlaced from './OrderPlaced'
 
 
 function App() {
@@ -14,8 +15,9 @@ function App() {
   return (
     <>
       <Header />
+      <OrderPlaced />
       {/* <PaymentPage /> */}
-      <AddressPage />
+      {/* <AddressPage /> */}
       {/* <Cart /> */}
       {/* <ContactPage /> */}
       {/* <AboutUs /> */}
