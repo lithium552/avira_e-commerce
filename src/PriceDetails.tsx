@@ -50,7 +50,7 @@ const PriceDetails = ({buttonText}: PriceDetailsProps) => {
                     <p>Rs. {order.totalAmount}</p>
                 </div>
             </div>
-            <Button buttonText={buttonText} />
+            <Button buttonText={buttonText} isArrow={true} />
         </>
     )
 }

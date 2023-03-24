@@ -2,6 +2,7 @@ import React from 'react'
 import Title from './Title'
 import { radioInputStyles } from './AddressPage'
 import PriceDetails from './PriceDetails'
+import Input from './Input'
 
 const PaymentPage = () => {
   return (
@@ -46,8 +47,8 @@ const PaymentPage = () => {
             </div>
           </div>
           <form action="" className='flex flex-col gap-4 mt-6'>
-            <input className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3' type="text" name="" id="" placeholder='Card Number' required />
-            <input className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3' type="text" name="" id="" placeholder='Name on Card' required />
+            <Input placeholder='Card Number' type='text' />
+            <Input placeholder='Name on Card' type='text' />
             <div className='flex gap-6'>
               <input className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3' type="text" name="" id="" placeholder='MM/YY' required />
               <input className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3' type="text" pattern='\[0-9]' minLength={3} maxLength={3} name="" id="" placeholder='CVV' required />

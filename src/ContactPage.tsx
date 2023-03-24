@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from './Button'
 
 const ContactPage = () => {
     return (
@@ -10,7 +11,7 @@ const ContactPage = () => {
                     <input className='pl-4 h-12 text-sm bg-textFieldBg rounded-lg border border-neutralsRule focus-visible:outline-textColorAcc' type="text" placeholder='Name' name="name" id="" />
                     <input className='pl-4 h-12 text-sm bg-textFieldBg rounded-lg border border-neutralsRule focus-visible:outline-textColorAcc' type="email" placeholder='Email' name="email" id="" />
                     <textarea className='pl-4 pt-4 h-32 resize-none text-sm bg-textFieldBg rounded-lg border border-neutralsRule focus-visible:outline-textColorAcc' placeholder='Message' name="message" id="" />
-                    <button className='rounded-lg bg-textColorPrimary h-12 text-textFieldBg inline-block mt-2' type="submit">Send</button>
+                    <Button buttonText='Send' isArrow={false} />
                 </form>
             </div>
             <div className='w-[40rem] bg-textColorAcc h-[30rem] flex flex-col gap-10 justify-center pl-16 text-white relative'>

@@ -30,7 +30,7 @@ const OrderPlaced = () => {
 </svg>
 <p className='mt-16'>Estimated Delivery </p>
 <p>Monday, 09th January, 2023 </p>
-<Button buttonText='Continue Shopping' />
+<Button buttonText='Continue Shopping' isArrow={true} />
         </main>
     )
 }
