@@ -11,6 +11,7 @@ interface AuthRegProps {
 
 const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
     const [isSwitcherOn, setIsSwitcherOn] = useState(true)
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
     return (
         <main className='flex'>
@@ -281,15 +282,15 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
                 </svg>
             </section>
             <section className='w-full flex items-center'>
-                <form action="" className='w-96 flex flex-col gap-6 ml-auto mr-24'>
+                <form action="" className='w-96 flex flex-col gap-6 mx-auto'>
                     <div>
                         <h1 className='text-2xl font-semibold'>{heading}</h1>
                         {subHeading && <p className='text-textColorTertiary text-sm mt-2'>{subHeading}</p>}
                     </div>
                     <Input placeholder='Email or phone number' type='text' />
                     <div className='w-full relative'>
-                        <Input placeholder='Enter password' type='password' />
-                        <svg className='absolute right-4 bottom-4' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <Input placeholder='Enter password' type={isPasswordVisible ? 'text' : 'password'} />
+                        <svg onClick={() => setIsPasswordVisible(prev => !prev)} className='cursor-pointer absolute right-4 bottom-4' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 2.66667C4.36364 2.66667 1.25818 4.92849 0 8.12122C1.25818 11.3139 4.36364 13.5758 8 13.5758C11.6364 13.5758 14.7418 11.3139 16 8.12122C14.7418 4.92849 11.6364 2.66667 8 2.66667ZM8 11.7576C5.99273 11.7576 4.36364 10.1285 4.36364 8.12122C4.36364 6.11394 5.99273 4.48485 8 4.48485C10.0073 4.48485 11.6364 6.11394 11.6364 8.12122C11.6364 10.1285 10.0073 11.7576 8 11.7576ZM8 5.9394C6.79273 5.9394 5.81818 6.91394 5.81818 8.12122C5.81818 9.32849 6.79273 10.303 8 10.303C9.20727 10.303 10.1818 9.32849 10.1818 8.12122C10.1818 6.91394 9.20727 5.9394 8 5.9394Z" fill="#737373" />
                         </svg>
                     </div>

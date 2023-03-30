@@ -27,7 +27,7 @@ const AboutUs = () => {
                     </div>
                 </div>
             </section>
-            <img src="./src/assets/about_us.png" alt="girl" />
+            <img className='h-[550px]' src="./src/assets/about_us.png" alt="girl" />
         </main>
     )
 }

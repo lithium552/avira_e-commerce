@@ -1,6 +1,6 @@
 import React from 'react'
-import Title from './Title'
-import PriceDetails from './PriceDetails'
+import Title from '../components/Title'
+import PriceDetails from '../components/PriceDetails'
 
 
 const addressData = [

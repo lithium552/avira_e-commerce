@@ -1,13 +1,13 @@
-import { womenData } from './WomenProducts'
 import { Data } from './ItemCard'
 import Button from './Button'
+import { useSelector } from 'react-redux'
 
 export interface PriceDetailsProps {
     buttonText: string
 }
 
 const PriceDetails = ({buttonText}: PriceDetailsProps) => {
-    womenData.length = 2
+    const cartData = useSelector(state => state.cart.cart) 
 
     const calculateOrder = (data: Data[]) => {
         const res = {
@@ -23,35 +23,39 @@ const PriceDetails = ({buttonText}: PriceDetailsProps) => {
         return res
     }
 
-    const order = calculateOrder(womenData)
+    const order = calculateOrder(cartData)
     return (
-        <>
+        <> 
+         {cartData.length ? (
+            <>
             <div>
-                <h2 className='font-semibold'>PRICE DETAILS ({womenData.length} ITEMS)</h2>
+                <h2 className='font-semibold'>PRICE DETAILS ({cartData.length} ITEMS)</h2>
                 <div className='flex justify-between mt-8'>
                     <p className='text-textColorTertiary text-sm'>Total MRP</p>
                     <p className='text-textColorPrimary'>Rs. {order.totalMRP}</p>
                 </div>
-                <div className='flex justify-between mt-6'>
+                <div className='flex justify-between mt-4'>
                     <p className='text-textColorTertiary text-sm'>Discount on MRP</p>
                     <p className='text-[#2DC071]'>Rs. -{order.discount}</p>
                 </div>
-                <div className='flex justify-between mt-6'>
+                <div className='flex justify-between mt-4'>
                     <p className='text-textColorTertiary text-sm'>Coupon Discount</p>
                     <p className='text-textColorPrimary'>Rs. 0</p>
                 </div>
-                <div className='flex justify-between mt-6'>
+                <div className='flex justify-between mt-4'>
                     <p className='text-textColorTertiary text-sm'>Delivery Charge</p>
                     <p className='text-[#2DC071]'>Free</p>
                 </div>
                 <hr className='mt-6' />
-                <div className='flex justify-between mt-6'>
+                <div className='flex justify-between mt-4'>
                     <p className='font-semibold text-textColorTertiary'>Total Amount</p>
                     <p>Rs. {order.totalAmount}</p>
                 </div>
             </div>
             <Button buttonText={buttonText} isArrow={true} />
-        </>
+            </>
+            ) : null}
+            </>
     )
 }
 

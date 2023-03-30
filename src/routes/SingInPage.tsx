@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import AuthReg from './AuthReg'
+import AuthReg from '../components/AuthReg'
 
 const SingInPage = () => {
     const [isSwitcherOn, setIsSwitcherOn] = useState(true)

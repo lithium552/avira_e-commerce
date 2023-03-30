@@ -1,0 +1,124 @@
+{
+  "womanProducts": [
+    {
+      "id": "OT2_QeCKFrldZPjL8mcGY",
+      "title": "VERO MODA",
+      "desc": "Blue Soft Knit Sweater",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "./src/assets/women/image13.png",
+      "isFavorite": false,
+      "rating": 4.9
+    },
+    {
+      "id": "ZJfVUdz0sOFBF3iYsakPF",
+      "title": "Forever 21",
+      "desc": "Plush body-hug sweater",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "./src/assets/women/image14.png",
+      "isFavorite": true,
+      "rating": 4.3
+    },
+    {
+      "id": "bV7kUX4i2RbTWJg6k4NV0",
+      "title": "HnM",
+      "desc": "Wide-leg TRF Jeans",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "./src/assets/women/image15.png",
+      "isFavorite": false,
+      "rating": 3.2
+    },
+    {
+      "id": "nStJLCbBeKHYrJ0Pst100",
+      "title": "ONLY",
+      "desc": "Floral Print Corsetry-Inspired Top",
+      "oldPrice": null,
+      "newPrice": 1790,
+      "img": "./src/assets/women/image16.png",
+      "isFavorite": false,
+      "rating": 3.9
+    },
+    {
+      "id": "huytuEZ34g-8fcCd9dpuw",
+      "title": "ZARA",
+      "desc": "Knit Scarf with diamond shapes",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "./src/assets/women/image17.png",
+      "isFavorite": false,
+      "rating": 4
+    },
+    {
+      "id": "YuEVsfTtIfT3mFxPbVFRn",
+      "title": "ONLY",
+      "desc": "Pink Blazer Dress",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "./src/assets/women/image18.png",
+      "isFavorite": false,
+      "rating": 4.3
+    },
+    {
+      "id": "KqqF8sGIP7_xC9WqNuDmj",
+      "title": "VERO MODA",
+      "desc": "Velvet Halter Jumpsuit",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "./src/assets/women/image19.png",
+      "isFavorite": false,
+      "rating": 4.1
+    },
+    {
+      "id": "WoVv5gMTfO8_rcN4vh3qG",
+      "title": "Plush",
+      "desc": "High Rise Jeans- Ankle Length",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "./src/assets/women/image20.png",
+      "isFavorite": false,
+      "rating": 4.2
+    },
+    {
+      "id": "vk7_W5acNGJhecmqJ4HUw",
+      "title": "Dressberry",
+      "desc": "3 pack of no-show socks",
+      "oldPrice": 2999,
+      "newPrice": 2299,
+      "img": "./src/assets/women/image21.png",
+      "isFavorite": false,
+      "rating": 4.5
+    },
+    {
+      "id": "7G6Gb2-qw2B2_Q-67WNqa",
+      "title": "ONLY",
+      "desc": "Polo Collar Jumpsuit",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "./src/assets/women/image22.png",
+      "isFavorite": true,
+      "rating": 3.3
+    },
+    {
+      "id": "qxOI9XgEkr7x-1ipJItjK",
+      "title": "ZARA",
+      "desc": "Blue mini dress",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "./src/assets/women/image23.png",
+      "isFavorite": true,
+      "rating": 5
+    },
+    {
+      "id": "S2GumAk_5fo0DBENwy1kr",
+      "title": "Forever 21",
+      "desc": "Wide Metal Choker",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "./src/assets/women/image24.png",
+      "isFavorite": true,
+      "rating": 4.4
+    }
+  ]
+}

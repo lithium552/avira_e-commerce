@@ -1,5 +1,6 @@
-import './index.css'
-import Header from './Header'
+import '../index.css'
+import Header from '../components/Header'
+import { Outlet } from 'react-router-dom'
 import Categories from './Categories'
 import WomenProducts from './WomenProducts'
 import AboutUs from './AboutUs'
@@ -12,23 +13,15 @@ import SingUpPage from './SingUpPage'
 import SingInPage from './SingInPage'
 
 
-function App() {
+
+function Root() {
 
   return (
     <>
-      {/* <SingUpPage /> */}
-      <SingInPage />
-      {/* <Header /> */}
-      {/* <OrderPlaced /> */}
-      {/* <PaymentPage /> */}
-      {/* <AddressPage /> */}
-      {/* <Cart /> */}
-      {/* <ContactPage /> */}
-      {/* <AboutUs /> */}
-      {/* <WomenProducts /> */}
-      {/* <Categories /> */}
+      <Header />
+      <Outlet />
     </>
   )
 }
 
-export default App
+export default Root

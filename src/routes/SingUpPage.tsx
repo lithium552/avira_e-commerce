@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AuthReg from './AuthReg'
+import AuthReg from '../components/AuthReg'
 
 const SingUpPage = () => {
     const [isSwitcherOn, setIsSwitcherOn] = useState(true)

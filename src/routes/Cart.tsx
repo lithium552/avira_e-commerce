@@ -1,22 +1,28 @@
-import PriceDetails from './PriceDetails'
-import Title from './Title'
-import { womenData } from './WomenProducts'
+import PriceDetails from '../components/PriceDetails'
+import Title from '../components/Title'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteFromCart } from '../features/cart'
+
 
 
 const Cart = () => {
-    womenData.length = 2
-
+    const dispatch = useDispatch()
+    const stateCartData = useSelector(state => state.cart.cart)
+    const cartData = stateCartData.length ? stateCartData : JSON.parse(localStorage.getItem('cartItems') || '[]')
+    console.log(cartData)
+    const deleteItemFromCart = (id: string) => dispatch(deleteFromCart(id))
     return (
-        <main className='flex max-w-1440 items-center justify-between mx-auto p-14 '>
-            <section className='flex gap-7 max-h-[640px]'>
+        <main className='flex max-w-1440 h-[600px] items-center justify-between mx-auto px-8 mt-8'>
+            <section className='flex gap-7 h-full'>
                 <svg className='mt-2' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.875 15.3L0.275 8.70001C0.175 8.60001 0.104 8.49167 0.0619998 8.37501C0.0206665 8.25834 0 8.13334 0 8.00001C0 7.86667 0.0206665 7.74167 0.0619998 7.62501C0.104 7.50834 0.175 7.40001 0.275 7.30001L6.875 0.700006C7.05833 0.516673 7.28733 0.420673 7.562 0.412006C7.83733 0.404006 8.075 0.500006 8.275 0.700006C8.475 0.883339 8.57933 1.11234 8.588 1.38701C8.596 1.66234 8.5 1.90001 8.3 2.10001L3.4 7.00001H14.575C14.8583 7.00001 15.096 7.09567 15.288 7.28701C15.4793 7.47901 15.575 7.71667 15.575 8.00001C15.575 8.28334 15.4793 8.52067 15.288 8.71201C15.096 8.90401 14.8583 9.00001 14.575 9.00001H3.4L8.3 13.9C8.48333 14.0833 8.57933 14.3167 8.588 14.6C8.596 14.8833 8.5 15.1167 8.3 15.3C8.11667 15.5 7.88333 15.6 7.6 15.6C7.31667 15.6 7.075 15.5 6.875 15.3Z" fill="#2D2D2D" />
                 </svg>
                 <div>
-                <Title length={womenData.length} title='ORDER SUMMARY' />
+                <Title length={cartData.length} title='ORDER SUMMARY' />
                 <section className='mt-10 max-w-xl max-h-[640px] pr-4 w-[33rem] overflow-auto'>
-                    {womenData.map(item => (
-                        <div key={item.img} className='border border-neutralsRule flex p-6 rounded-lg mb-6'>
+                    {cartData.length !== 0 ? 
+                        (cartData.map(item => (
+                        <div key={item.id} className='border border-neutralsRule flex p-6 rounded-lg mb-6'>
                             <img className='max-h-48' src={item.img} alt="Product image" />
                             <div className='ml-12'>
                                 <h2 className='font-semibold'>{item.title}</h2>
@@ -53,7 +59,7 @@ const Cart = () => {
                                     <p className='text-textColorTertiary'>Delivery by <span className='text-textColorPrimary'>9th Jan, 2023</span></p>
                                 </div>
                             </div>
-                            <svg className='ml-auto' width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg className='ml-auto hover:cursor-pointer' onClick={cartData.length ? () => deleteItemFromCart(item.id): null}  width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_293_113)">
                                     <path d="M11.5993 11.6002L0.399292 0.400177M0.399292 11.6002L11.5993 0.400177L0.399292 11.6002Z" stroke="#737373" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </g>
@@ -64,13 +70,13 @@ const Cart = () => {
                                 </defs>
                             </svg>
                         </div>
-                    ))}
+                    ))) : (<div>Cart is empty</div>)}
                 </section>
                 </div>
             </section>
-            <div className='border-l border-neutralsRule h-[640px] mr-9 w-8'>
+            <div className='border-l border-neutralsRule h-full w-8'>
             </div>
-            <section className='max-w-xl'>
+            <section className='max-w-xl h-full mt-4'>
                 <div className='flex items-center gap-8 py-4 px-6 w-[33rem] justify-around bg-textFieldBg'>
                     <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_293_173)">
@@ -93,7 +99,7 @@ const Cart = () => {
                     </svg>
                     <p>Yay! <strong>No Delivery Charge</strong> on this order.</p>
                 </div>
-                <form className='mt-10 mb-10 flex flex-col relative'>
+                <form className='mt-4 mb-4 flex flex-col relative'>
                     <label htmlFor='coupon' className='font-semibold'>Have a Coupon?</label>
                     <input className='mt-4 w-full border py-3 px-4 rounded-lg border-neutralsRule focus-visible:outline-textColorAcc' type="text" id='coupon' placeholder='Enter Coupon Code' />
                     <button className='absolute right-3 bottom-3 text-textColorAcc font-semibold '>APPLY</button>

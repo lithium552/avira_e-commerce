@@ -1,8 +1,8 @@
 import React from 'react'
-import Title from './Title'
+import Title from '../components/Title'
 import { radioInputStyles } from './AddressPage'
-import PriceDetails from './PriceDetails'
-import Input from './Input'
+import PriceDetails from '../components/PriceDetails'
+import Input from '../components/Input'
 
 const PaymentPage = () => {
   return (
