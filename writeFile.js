@@ -3,7 +3,8 @@ import reduxx from '@reduxjs/toolkit'
 const { nanoid } = reduxx
 
 const womenData = [
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'VERO MODA',
         desc: 'Blue Soft Knit Sweater',
         oldPrice: null,
@@ -12,7 +13,8 @@ const womenData = [
         isFavorite: true,
         rating: 4.9
     },
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'Forever 21',
         desc: 'Plush body-hug sweater',
         oldPrice: 2299,
@@ -21,7 +23,8 @@ const womenData = [
         isFavorite: true,
         rating: 4.3
     },
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'HnM',
         desc: 'Wide-leg TRF Jeans',
         oldPrice: 3299,
@@ -30,7 +33,8 @@ const womenData = [
         isFavorite: false,
         rating: 3.2
     },
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'ONLY',
         desc: 'Floral Print Corsetry-Inspired Top',
         oldPrice: null,
@@ -39,7 +43,8 @@ const womenData = [
         isFavorite: false,
         rating: 3.9
     },
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'ZARA',
         desc: 'Knit Scarf with diamond shapes',
         oldPrice: null,
@@ -48,7 +53,8 @@ const womenData = [
         isFavorite: false,
         rating: 4.0
     },
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'ONLY',
         desc: 'Pink Blazer Dress',
         oldPrice: 2299,
@@ -57,7 +63,8 @@ const womenData = [
         isFavorite: false,
         rating: 4.3
     },
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'VERO MODA',
         desc: 'Velvet Halter Jumpsuit',
         oldPrice: 3299,
@@ -66,7 +73,8 @@ const womenData = [
         isFavorite: false,
         rating: 4.1
     },
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'Plush',
         desc: 'High Rise Jeans- Ankle Length',
         oldPrice: 2299,
@@ -75,7 +83,8 @@ const womenData = [
         isFavorite: false,
         rating: 4.2
     },
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'Dressberry',
         desc: '3 pack of no-show socks',
         oldPrice: 2999,
@@ -84,7 +93,8 @@ const womenData = [
         isFavorite: false,
         rating: 4.5
     },
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'ONLY',
         desc: 'Polo Collar Jumpsuit',
         oldPrice: 2299,
@@ -93,7 +103,8 @@ const womenData = [
         isFavorite: false,
         rating: 3.3
     },
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'ZARA',
         desc: 'Blue mini dress',
         oldPrice: 3299,
@@ -102,7 +113,8 @@ const womenData = [
         isFavorite: false,
         rating: 5.0
     },
-    {   id: nanoid(),
+    {
+        id: nanoid(),
         title: 'Forever 21',
         desc: 'Wide Metal Choker',
         oldPrice: 2299,
@@ -113,7 +125,40 @@ const womenData = [
     },
 ]
 
-fs.writeFile('./db.json', JSON.stringify(womenData), 'utf-8',  function(err) {
+const data = [
+ 'Aroma beauty, Lorem ipsum dolor sit consectetur adipiscing Puma X-Ray Speed Lite',
+ 'Aroma beauty, Lorem ipsum dolor sit  adipiscing Puma Club Retro Prep',
+ 'Aroma beauty, Lorem ipsum  consectetur adipiscing Puma Slipstream Cord',
+ 'Aroma beauty, Lorem ipsum dolor sit consectetur adipiscing Ralph Lauren Masters Crt',
+ 'Aroma beauty, Lorem ipsum dolor sit  Puma Transport',
+ 'Aroma beauty,  sit consectetur adipiscing Lacoste T-CLIP',
+ 'Aroma beauty, Lorem ipsum dtetur adipiscing Lacoste COURT CAGE',
+ 'Aroma beauty, Lorem ipsum dolor sit consectetur adipiscing Hoka One One Speedgoat 5 GTX',
+ 'Aroma beauty, Lorem  sit consectetur adipiscing Lacoste L004',
+ 'Aroma beauty, Lorem  sit consectetur adipiscing Lacoste JOGGEUR 2.0',
+ 'Aroma beauty, Lorem ipsum dolor sit cor adipiscing Lacoste L001',
+ 'Aroma beauty, Lorem ipsum doit consectetur adipiscing ROND PRO',
+]
+
+let res = []
+
+for (let i = 0; i < data.length; i++) {
+    const dividedStrings = data[i].split(',')
+    res.push({
+        id: nanoid(),
+        title: dividedStrings[0].trim() + `${i + 1}`,
+        desc: dividedStrings[1].trim(),
+        oldPrice: womenData[i].oldPrice,
+        newPrice: womenData[i].newPrice,
+        img: `./src/assets/beauty/B${i + 1}.webp`,
+        isFavorite: false,
+        rating: womenData[i].rating
+    })
+}
+
+console.log(res)
+fs.writeFile('./db1.json',
+ JSON.stringify(res), 'utf-8', function (err) {
     if (err) throw err;
     console.log('complete');
-    })
+})

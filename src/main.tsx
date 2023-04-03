@@ -13,7 +13,7 @@ import Cart from './routes/Cart'
 import AddressPage from './routes/AddressPage'
 import PaymentPage from './routes/PaymentPage'
 import OrderPlaced from './routes/OrderPlaced'
-import WomenProducts from './routes/WomenProducts'
+import Products from './routes/Products'
 import SingUpPage from './routes/SingUpPage'
 import SingInPage from './routes/SingInPage'
 import strore from './app/strore'
@@ -31,7 +31,31 @@ const router = createBrowserRouter([
       },
       {
         path: '/categories',
-        element: <Categories />
+        element: <Categories />,
+      },
+      {
+        path: '/categories/men',
+        element: <Products />,
+      },
+      {
+        path: '/categories/women',
+        element: <Products />,
+      },
+      {
+        path: '/categories/sneakers',
+        element: <Products />,
+      },
+      {
+        path: '/categories/accessories',
+        element: <Products />,
+      },
+      {
+        path: '/categories/children',
+        element: <Products />,
+      },
+      {
+        path: '/categories/beauty',
+        element: <Products />,
       },
       {
         path: '/about-us',
@@ -56,10 +80,6 @@ const router = createBrowserRouter([
       {
         path: '/order',
         element: <OrderPlaced />
-      },
-      {
-        path: '/products',
-        element: <WomenProducts />
       },
     ]
   },

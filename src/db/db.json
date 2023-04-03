@@ -1,12 +1,12 @@
 {
-  "womanProducts": [
+  "women": [
     {
       "id": "OT2_QeCKFrldZPjL8mcGY",
       "title": "VERO MODA",
       "desc": "Blue Soft Knit Sweater",
       "oldPrice": null,
       "newPrice": 2299,
-      "img": "./src/assets/women/image13.png",
+      "img": "../src/assets/women/image13.png",
       "isFavorite": false,
       "rating": 4.9
     },
@@ -16,8 +16,8 @@
       "desc": "Plush body-hug sweater",
       "oldPrice": 2299,
       "newPrice": 1790,
-      "img": "./src/assets/women/image14.png",
-      "isFavorite": true,
+      "img": "../src/assets/women/image14.png",
+      "isFavorite": false,
       "rating": 4.3
     },
     {
@@ -26,8 +26,8 @@
       "desc": "Wide-leg TRF Jeans",
       "oldPrice": 3299,
       "newPrice": 2999,
-      "img": "./src/assets/women/image15.png",
-      "isFavorite": false,
+      "img": "../src/assets/women/image15.png",
+      "isFavorite": true,
       "rating": 3.2
     },
     {
@@ -36,8 +36,8 @@
       "desc": "Floral Print Corsetry-Inspired Top",
       "oldPrice": null,
       "newPrice": 1790,
-      "img": "./src/assets/women/image16.png",
-      "isFavorite": false,
+      "img": "../src/assets/women/image16.png",
+      "isFavorite": true,
       "rating": 3.9
     },
     {
@@ -46,7 +46,7 @@
       "desc": "Knit Scarf with diamond shapes",
       "oldPrice": null,
       "newPrice": 2299,
-      "img": "./src/assets/women/image17.png",
+      "img": "../src/assets/women/image17.png",
       "isFavorite": false,
       "rating": 4
     },
@@ -56,7 +56,7 @@
       "desc": "Pink Blazer Dress",
       "oldPrice": 2299,
       "newPrice": 1790,
-      "img": "./src/assets/women/image18.png",
+      "img": "../src/assets/women/image18.png",
       "isFavorite": false,
       "rating": 4.3
     },
@@ -66,7 +66,7 @@
       "desc": "Velvet Halter Jumpsuit",
       "oldPrice": 3299,
       "newPrice": 2999,
-      "img": "./src/assets/women/image19.png",
+      "img": "../src/assets/women/image19.png",
       "isFavorite": false,
       "rating": 4.1
     },
@@ -76,7 +76,7 @@
       "desc": "High Rise Jeans- Ankle Length",
       "oldPrice": 2299,
       "newPrice": 1790,
-      "img": "./src/assets/women/image20.png",
+      "img": "../src/assets/women/image20.png",
       "isFavorite": false,
       "rating": 4.2
     },
@@ -86,8 +86,8 @@
       "desc": "3 pack of no-show socks",
       "oldPrice": 2999,
       "newPrice": 2299,
-      "img": "./src/assets/women/image21.png",
-      "isFavorite": false,
+      "img": "../src/assets/women/image21.png",
+      "isFavorite": true,
       "rating": 4.5
     },
     {
@@ -96,7 +96,7 @@
       "desc": "Polo Collar Jumpsuit",
       "oldPrice": 2299,
       "newPrice": 1790,
-      "img": "./src/assets/women/image22.png",
+      "img": "../src/assets/women/image22.png",
       "isFavorite": true,
       "rating": 3.3
     },
@@ -106,7 +106,7 @@
       "desc": "Blue mini dress",
       "oldPrice": 3299,
       "newPrice": 2999,
-      "img": "./src/assets/women/image23.png",
+      "img": "../src/assets/women/image23.png",
       "isFavorite": true,
       "rating": 5
     },
@@ -116,8 +116,618 @@
       "desc": "Wide Metal Choker",
       "oldPrice": 2299,
       "newPrice": 1790,
-      "img": "./src/assets/women/image24.png",
+      "img": "../src/assets/women/image24.png",
       "isFavorite": true,
+      "rating": 4.4
+    }
+  ],
+  "men": [
+    {
+      "id": "ihl-HQdwHc_ctNJk8_yVJ",
+      "title": "Jeans Wrangler",
+      "desc": "Larston x Fender",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "../src/assets/men/F1.webp",
+      "isFavorite": false,
+      "rating": 4.9
+    },
+    {
+      "id": "rHteuTpKw0r5SSMOuKdYX",
+      "title": "Jacket outdoor",
+      "desc": "The North Face Class",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/men/F2.webp",
+      "isFavorite": false,
+      "rating": 4.3
+    },
+    {
+      "id": "nACcvLjj60nxV1iqNRtSX",
+      "title": "Jacket",
+      "desc": "Mustang",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/men/F3.webp",
+      "isFavorite": true,
+      "rating": 3.2
+    },
+    {
+      "id": "4M34fhYq9EjFTum9qsbt7",
+      "title": "Jeans shirt",
+      "desc": "Pepe Jeans",
+      "oldPrice": null,
+      "newPrice": 1790,
+      "img": "../src/assets/men/F4.webp",
+      "isFavorite": true,
+      "rating": 3.9
+    },
+    {
+      "id": "GXcs_G276ETQXKXk5IbSx",
+      "title": "Jeans Jacket",
+      "desc": "Tiger Of Sweden",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "../src/assets/men/F5.webp",
+      "isFavorite": false,
+      "rating": 4
+    },
+    {
+      "id": "ehnz2o-nLfM6JCjz-EF_W",
+      "title": "Jacket",
+      "desc": "The North Face ZUMU JACKET",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/men/F6.webp",
+      "isFavorite": false,
+      "rating": 4.3
+    },
+    {
+      "id": "X-P3kPAVHD48DfsA8GjnT",
+      "title": "Sport",
+      "desc": "The North Face 100 Glacier",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/men/F7.webp",
+      "isFavorite": true,
+      "rating": 4.1
+    },
+    {
+      "id": "GIHC79P9RODmhMkwoWYxF",
+      "title": "Jacket",
+      "desc": "Pepe Jeans",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/men/F8.webp",
+      "isFavorite": true,
+      "rating": 4.2
+    },
+    {
+      "id": "xF7Wvh7efsIStJyHmnncw",
+      "title": "Cotton T-shirt",
+      "desc": "Desigual",
+      "oldPrice": 2999,
+      "newPrice": 2299,
+      "img": "../src/assets/men/F9.webp",
+      "isFavorite": true,
+      "rating": 4.5
+    },
+    {
+      "id": "GTmcv3OVa1jyClKuLQcWj",
+      "title": "Jacket",
+      "desc": "Calvin Klein",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/men/F10.webp",
+      "isFavorite": true,
+      "rating": 3.3
+    },
+    {
+      "id": "K-16elbKSdPfyuWQUnbRX",
+      "title": "Jacket",
+      "desc": "Guess",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/men/F11.webp",
+      "isFavorite": false,
+      "rating": 5
+    },
+    {
+      "id": "Y6GmBkxUvvuMOa_yJNIzU",
+      "title": "Cotton T-shirt",
+      "desc": "Napapijri",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/men/F12.webp",
+      "isFavorite": false,
+      "rating": 4.4
+    }
+  ],
+  "sneakers": [
+    {
+      "id": "BpENpZmIxnKnL9XmgeiRF",
+      "title": "Sneakers",
+      "desc": "Puma X-Ray Speed Lite",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "../src/assets/sneakers/C1.webp",
+      "isFavorite": false,
+      "rating": 4.9
+    },
+    {
+      "id": "GpCEKwlyAri4BHVxKr12_",
+      "title": "Sneakers Puma",
+      "desc": "Puma Club Retro Prep",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/sneakers/C2.webp",
+      "isFavorite": false,
+      "rating": 4.3
+    },
+    {
+      "id": "w7R8vX8v_Cc_OXDL1tq6b",
+      "title": "Sneakers",
+      "desc": "Puma Slipstream Cord",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/sneakers/C3.webp",
+      "isFavorite": false,
+      "rating": 3.2
+    },
+    {
+      "id": "ulhyUcGmoNXG63L0zad8y",
+      "title": "Sneakers Polo",
+      "desc": "Ralph Lauren Masters Crt",
+      "oldPrice": null,
+      "newPrice": 1790,
+      "img": "../src/assets/sneakers/C4.webp",
+      "isFavorite": false,
+      "rating": 3.9
+    },
+    {
+      "id": "Q1zvQLFccufjP4hOPug90",
+      "title": "Sneakers",
+      "desc": "Puma Transport",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "../src/assets/sneakers/C5.webp",
+      "isFavorite": false,
+      "rating": 4
+    },
+    {
+      "id": "v_lwszqWCvgfetjN6tIj0",
+      "title": "Sneakers",
+      "desc": "Lacoste T-CLIP",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/sneakers/C6.webp",
+      "isFavorite": true,
+      "rating": 4.3
+    },
+    {
+      "id": "ECGTOc7M0KHMRZohsN0Dh",
+      "title": "Sneakers",
+      "desc": "Lacoste COURT CAGE",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/sneakers/C7.webp",
+      "isFavorite": false,
+      "rating": 4.1
+    },
+    {
+      "id": "jKRkuYJxcA5FjQHnXROHg",
+      "title": "Sneakers",
+      "desc": "Hoka One One Speedgoat 5 GTX",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/sneakers/C8.webp",
+      "isFavorite": false,
+      "rating": 4.2
+    },
+    {
+      "id": "_3wV_iIM4iqPgtDZtYaFt",
+      "title": "Sneakers",
+      "desc": "Lacoste L004",
+      "oldPrice": 2999,
+      "newPrice": 2299,
+      "img": "../src/assets/sneakers/C9.webp",
+      "isFavorite": true,
+      "rating": 4.5
+    },
+    {
+      "id": "ryDZYVJhpYNkuGpX2yKH7",
+      "title": "Sneakers",
+      "desc": "Lacoste JOGGEUR 2.0",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/sneakers/C10.webp",
+      "isFavorite": false,
+      "rating": 3.3
+    },
+    {
+      "id": "0CPMkvpoSQpeqq0R3Bo-B",
+      "title": "Sneakers",
+      "desc": "Lacoste L001",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/sneakers/C11.webp",
+      "isFavorite": true,
+      "rating": 5
+    },
+    {
+      "id": "B77WieCD2DF1QBl7KW4nV",
+      "title": "Sneakers",
+      "desc": "Lacoste LEROND PRO",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/sneakers/C12.webp",
+      "isFavorite": true,
+      "rating": 4.4
+    }
+  ],
+  "accessories": [
+    {
+      "id": "PxLhiSoYEeNV1pMafeb-e",
+      "title": "Backpack",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Puma X-Ray Speed Lite",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "../src/assets/accessories/A1.webp",
+      "isFavorite": false,
+      "rating": 4.9
+    },
+    {
+      "id": "sc2s1413f9kYeAJFu46lW",
+      "title": "Backpack Puma",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Puma Club Retro Prep",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/accessories/A2.webp",
+      "isFavorite": false,
+      "rating": 4.3
+    },
+    {
+      "id": "6QtkDh3oWPo9ytXyz79xI",
+      "title": "Sunglasses",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Puma Slipstream Cord",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/accessories/A3.webp",
+      "isFavorite": false,
+      "rating": 3.2
+    },
+    {
+      "id": "VALKUMbnvfym6_l6TJjFM",
+      "title": "Cap Polo",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Ralph Lauren Masters Crt",
+      "oldPrice": null,
+      "newPrice": 1790,
+      "img": "../src/assets/accessories/A4.webp",
+      "isFavorite": false,
+      "rating": 3.9
+    },
+    {
+      "id": "lIN2A09sebOZUzhd3khDm",
+      "title": "Belt",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Puma Transport",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "../src/assets/accessories/A5.webp",
+      "isFavorite": false,
+      "rating": 4
+    },
+    {
+      "id": "iLVgfQiXKKv2t3EB5EW1q",
+      "title": "Belt",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Lacoste T-CLIP",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/accessories/A6.webp",
+      "isFavorite": false,
+      "rating": 4.3
+    },
+    {
+      "id": "o7QvWpAAXWghlAGI9HCwJ",
+      "title": "Bag",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Lacoste COURT CAGE",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/accessories/A7.webp",
+      "isFavorite": false,
+      "rating": 4.1
+    },
+    {
+      "id": "THE92FSt2Oroya74NrcJg",
+      "title": "Bag",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Hoka One One Speedgoat 5 GTX",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/accessories/A8.webp",
+      "isFavorite": false,
+      "rating": 4.2
+    },
+    {
+      "id": "4XkNCb2HqXYsD0PFVOYpQ",
+      "title": "Sunglasses",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Lacoste L004",
+      "oldPrice": 2999,
+      "newPrice": 2299,
+      "img": "../src/assets/accessories/A9.webp",
+      "isFavorite": true,
+      "rating": 4.5
+    },
+    {
+      "id": "Ynaw7Z9VVQ4b0nBtxCw0v",
+      "title": "Backpack",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Lacoste JOGGEUR 2.0",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/accessories/A10.webp",
+      "isFavorite": true,
+      "rating": 3.3
+    },
+    {
+      "id": "Og1iWrn-tErDK4WfohYN5",
+      "title": "Hat",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Lacoste L001",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/accessories/A11.webp",
+      "isFavorite": true,
+      "rating": 5
+    },
+    {
+      "id": "Ypd3LtA6B9JDqZqYAT7-p",
+      "title": "Backpack",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Lacoste LEROND PRO",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/accessories/A12.webp",
+      "isFavorite": true,
+      "rating": 4.4
+    }
+  ],
+  "children": [
+    {
+      "id": "SzaGGWaP_HcctduhcGODu",
+      "title": "MayorBackpack",
+      "desc": "Lorem ipsu ad Puma X-Ray Speed Lite",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "../src/assets/children/X1.webp",
+      "isFavorite": true,
+      "rating": 4.9
+    },
+    {
+      "id": "YoNbbV9gTUO11vOwKT5Zj",
+      "title": "MayorBackpack Puma",
+      "desc": "Lorem ipsu ad Puma Club Retro Prep",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/children/X2.webp",
+      "isFavorite": true,
+      "rating": 4.3
+    },
+    {
+      "id": "Ps3r3Pj5DXbM3UwCvvw9j",
+      "title": "MayorTrousers",
+      "desc": "Lorem ipsu ad Puma Slipstream Cord",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/children/X3.webp",
+      "isFavorite": true,
+      "rating": 3.2
+    },
+    {
+      "id": "sYZK6zsPEHPg5XQ68DyIl",
+      "title": "MayorDress",
+      "desc": "Lorem ipsu ad Ralph Lauren Masters Crt",
+      "oldPrice": null,
+      "newPrice": 1790,
+      "img": "../src/assets/children/X4.webp",
+      "isFavorite": true,
+      "rating": 3.9
+    },
+    {
+      "id": "PkMdVpkADIDrqZsHstyUR",
+      "title": "MayorTrousers",
+      "desc": "Lorem ipsu ad Puma Transport",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "../src/assets/children/X5.webp",
+      "isFavorite": false,
+      "rating": 4
+    },
+    {
+      "id": "TkoNVpGUDKOUPtdcYOWtI",
+      "title": "MayorJacket",
+      "desc": "Lorem ipsu ad Lacoste T-CLIP",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/children/X6.webp",
+      "isFavorite": false,
+      "rating": 4.3
+    },
+    {
+      "id": "wfSk5gF1euT9sTqGx8sPN",
+      "title": "MayorJacket",
+      "desc": "Lorem ipsu ad Lacoste COURT CAGE",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/children/X7.webp",
+      "isFavorite": true,
+      "rating": 4.1
+    },
+    {
+      "id": "1vEjA8jTrAP8Q8zIwmFRq",
+      "title": "MayorBackpack",
+      "desc": "Lorem ipsu ad Hoka One One Speedgoat 5 GTX",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/children/X8.webp",
+      "isFavorite": true,
+      "rating": 4.2
+    },
+    {
+      "id": "lLkdTTy1dxaX5dxOD6Ojo",
+      "title": "MayorBackpack",
+      "desc": "Lorem ipsu ad Lacoste L004",
+      "oldPrice": 2999,
+      "newPrice": 2299,
+      "img": "../src/assets/children/X9.webp",
+      "isFavorite": false,
+      "rating": 4.5
+    },
+    {
+      "id": "7ux2X4KVK2D0baXTWypGF",
+      "title": "MayorSneakers",
+      "desc": "Lorem ipsu ad Lacoste JOGGEUR 2.0",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/children/X10.webp",
+      "isFavorite": false,
+      "rating": 3.3
+    },
+    {
+      "id": "Lvx3ca5A8lSMdm4GMIHS4",
+      "title": "MayorLeggins",
+      "desc": "Lorem ipsu ad Lacoste L001",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/children/X11.webp",
+      "isFavorite": true,
+      "rating": 5
+    },
+    {
+      "id": "qOKJkUyTOKQ_YY3UPe9hV",
+      "title": "MayorSneakers",
+      "desc": "Lorem ipsu ad Lacoste LEROND PRO",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/children/X12.webp",
+      "isFavorite": false,
+      "rating": 4.4
+    }
+  ],
+  "beauty": [
+    {
+      "id": "jS4x3Kz3inJzwdjJX5a3E",
+      "title": "Aroma beauty1",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Puma X-Ray Speed Lite",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "../src/assets/beauty/B1.webp",
+      "isFavorite": true,
+      "rating": 4.9
+    },
+    {
+      "id": "70rS2Av-YKvYbqc_IjuOK",
+      "title": "Aroma beauty2",
+      "desc": "Lorem ipsum dolor sit  adipiscing Puma Club Retro Prep",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/beauty/B2.webp",
+      "isFavorite": true,
+      "rating": 4.3
+    },
+    {
+      "id": "0-hT1fn374puPL8XI08Cm",
+      "title": "Aroma beauty3",
+      "desc": "Lorem ipsum  consectetur adipiscing Puma Slipstream Cord",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/beauty/B3.webp",
+      "isFavorite": true,
+      "rating": 3.2
+    },
+    {
+      "id": "WZuMqCZcu07SaEl0pzgx9",
+      "title": "Aroma beauty4",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Ralph Lauren Masters Crt",
+      "oldPrice": null,
+      "newPrice": 1790,
+      "img": "../src/assets/beauty/B4.webp",
+      "isFavorite": true,
+      "rating": 3.9
+    },
+    {
+      "id": "7LixsaVxpteuUraPO2Nsm",
+      "title": "Aroma beauty5",
+      "desc": "Lorem ipsum dolor sit  Puma Transport",
+      "oldPrice": null,
+      "newPrice": 2299,
+      "img": "../src/assets/beauty/B5.webp",
+      "isFavorite": false,
+      "rating": 4
+    },
+    {
+      "id": "vXwrMh4_cOE_0fS8Xp6rQ",
+      "title": "Aroma beauty6",
+      "desc": "sit consectetur adipiscing Lacoste T-CLIP",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/beauty/B6.webp",
+      "isFavorite": false,
+      "rating": 4.3
+    },
+    {
+      "id": "Ky5Qm0IyoFyd3-K0lqMNB",
+      "title": "Aroma beauty7",
+      "desc": "Lorem ipsum dtetur adipiscing Lacoste COURT CAGE",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/beauty/B7.webp",
+      "isFavorite": false,
+      "rating": 4.1
+    },
+    {
+      "id": "Q6uYd1dPAbNUDnAvptzRE",
+      "title": "Aroma beauty8",
+      "desc": "Lorem ipsum dolor sit consectetur adipiscing Hoka One One Speedgoat 5 GTX",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/beauty/B8.webp",
+      "isFavorite": false,
+      "rating": 4.2
+    },
+    {
+      "id": "CvVPCoNKsWh3wATTOOOWz",
+      "title": "Aroma beauty9",
+      "desc": "Lorem  sit consectetur adipiscing Lacoste L004",
+      "oldPrice": 2999,
+      "newPrice": 2299,
+      "img": "../src/assets/beauty/B9.webp",
+      "isFavorite": false,
+      "rating": 4.5
+    },
+    {
+      "id": "bX4aQPMMEAdaQ51Krt7wG",
+      "title": "Aroma beauty10",
+      "desc": "Lorem  sit consectetur adipiscing Lacoste JOGGEUR 2.0",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/beauty/B10.webp",
+      "isFavorite": false,
+      "rating": 3.3
+    },
+    {
+      "id": "7IjMantBTrwje0bGHoF-H",
+      "title": "Aroma beauty11",
+      "desc": "Lorem ipsum dolor sit cor adipiscing Lacoste L001",
+      "oldPrice": 3299,
+      "newPrice": 2999,
+      "img": "../src/assets/beauty/B11.webp",
+      "isFavorite": false,
+      "rating": 5
+    },
+    {
+      "id": "9SrzX7-U2MX4wyO9b3JHj",
+      "title": "Aroma beauty12",
+      "desc": "Lorem ipsum doit consectetur adipiscing ROND PRO",
+      "oldPrice": 2299,
+      "newPrice": 1790,
+      "img": "../src/assets/beauty/B12.webp",
+      "isFavorite": false,
       "rating": 4.4
     }
   ]

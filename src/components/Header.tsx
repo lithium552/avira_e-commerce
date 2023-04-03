@@ -1,14 +1,18 @@
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { selectAllFavoriteProducts } from '../features/products/womanProductsSlice'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectAllFavoriteProducts, selectAllProducts } from '../features/products/allProductsSlice'
+import { fetchAllProducts } from '../features/products/allProductsSlice'
 
 const Header = () => {
   const cartCounter = useSelector(state => state.cart.cart.length)
+  const status = useSelector(state => state.allProducts.status)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    console.log('first')
+    if (status === 'idle') dispatch(fetchAllProducts())
+  }, [])
   const favoriteCounter = useSelector(selectAllFavoriteProducts)
   console.log(favoriteCounter)
-  useEffect(() => {
-    console.log('favorite')
-  },[favoriteCounter])
   return (
     <header className='shadow-[0_1px_2px_0_rgba(0,0,0,0.25)]'>
       <section className='flex py-4 px-14 justify-between items-center '>
