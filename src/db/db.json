@@ -27,7 +27,7 @@
       "oldPrice": 3299,
       "newPrice": 2999,
       "img": "../src/assets/women/image15.png",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 3.2
     },
     {
@@ -37,7 +37,7 @@
       "oldPrice": null,
       "newPrice": 1790,
       "img": "../src/assets/women/image16.png",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 3.9
     },
     {
@@ -87,7 +87,7 @@
       "oldPrice": 2999,
       "newPrice": 2299,
       "img": "../src/assets/women/image21.png",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.5
     },
     {
@@ -97,7 +97,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/women/image22.png",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 3.3
     },
     {
@@ -107,7 +107,7 @@
       "oldPrice": 3299,
       "newPrice": 2999,
       "img": "../src/assets/women/image23.png",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 5
     },
     {
@@ -117,7 +117,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/women/image24.png",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.4
     }
   ],
@@ -139,7 +139,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/men/F2.webp",
-      "isFavorite": false,
+      "isFavorite": true,
       "rating": 4.3
     },
     {
@@ -149,7 +149,7 @@
       "oldPrice": 3299,
       "newPrice": 2999,
       "img": "../src/assets/men/F3.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 3.2
     },
     {
@@ -159,7 +159,7 @@
       "oldPrice": null,
       "newPrice": 1790,
       "img": "../src/assets/men/F4.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 3.9
     },
     {
@@ -189,7 +189,7 @@
       "oldPrice": 3299,
       "newPrice": 2999,
       "img": "../src/assets/men/F7.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.1
     },
     {
@@ -199,7 +199,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/men/F8.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.2
     },
     {
@@ -209,7 +209,7 @@
       "oldPrice": 2999,
       "newPrice": 2299,
       "img": "../src/assets/men/F9.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.5
     },
     {
@@ -219,7 +219,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/men/F10.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 3.3
     },
     {
@@ -301,7 +301,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/sneakers/C6.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.3
     },
     {
@@ -331,7 +331,7 @@
       "oldPrice": 2999,
       "newPrice": 2299,
       "img": "../src/assets/sneakers/C9.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.5
     },
     {
@@ -351,7 +351,7 @@
       "oldPrice": 3299,
       "newPrice": 2999,
       "img": "../src/assets/sneakers/C11.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 5
     },
     {
@@ -361,7 +361,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/sneakers/C12.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.4
     }
   ],
@@ -453,7 +453,7 @@
       "oldPrice": 2999,
       "newPrice": 2299,
       "img": "../src/assets/accessories/A9.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.5
     },
     {
@@ -463,7 +463,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/accessories/A10.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 3.3
     },
     {
@@ -473,7 +473,7 @@
       "oldPrice": 3299,
       "newPrice": 2999,
       "img": "../src/assets/accessories/A11.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 5
     },
     {
@@ -483,7 +483,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/accessories/A12.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.4
     }
   ],
@@ -495,7 +495,7 @@
       "oldPrice": null,
       "newPrice": 2299,
       "img": "../src/assets/children/X1.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.9
     },
     {
@@ -505,7 +505,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/children/X2.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.3
     },
     {
@@ -515,7 +515,7 @@
       "oldPrice": 3299,
       "newPrice": 2999,
       "img": "../src/assets/children/X3.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 3.2
     },
     {
@@ -525,7 +525,7 @@
       "oldPrice": null,
       "newPrice": 1790,
       "img": "../src/assets/children/X4.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 3.9
     },
     {
@@ -545,7 +545,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/children/X6.webp",
-      "isFavorite": false,
+      "isFavorite": true,
       "rating": 4.3
     },
     {
@@ -595,7 +595,7 @@
       "oldPrice": 3299,
       "newPrice": 2999,
       "img": "../src/assets/children/X11.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 5
     },
     {
@@ -617,7 +617,7 @@
       "oldPrice": null,
       "newPrice": 2299,
       "img": "../src/assets/beauty/B1.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.9
     },
     {
@@ -627,7 +627,7 @@
       "oldPrice": 2299,
       "newPrice": 1790,
       "img": "../src/assets/beauty/B2.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 4.3
     },
     {
@@ -637,7 +637,7 @@
       "oldPrice": 3299,
       "newPrice": 2999,
       "img": "../src/assets/beauty/B3.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 3.2
     },
     {
@@ -647,7 +647,7 @@
       "oldPrice": null,
       "newPrice": 1790,
       "img": "../src/assets/beauty/B4.webp",
-      "isFavorite": true,
+      "isFavorite": false,
       "rating": 3.9
     },
     {
@@ -730,5 +730,40 @@
       "isFavorite": false,
       "rating": 4.4
     }
-  ]
+  ],
+  "addresses": [
+    {
+        "id": "EfkMhrtbgBx0AQmLhbbeu",
+        "name": "Salem",
+        "surname": "Mirza",
+        "street": "Kochi - Kanyakumari Hwy, Palayam",
+        "city": "Thiruvananthapuram, Kerala",
+        "index": "695001",
+        "phone": "0471 247 0240",
+        "isOffice": false,
+        "isHome": true
+    },
+    {
+        "id": "NuPWswGYDDGutbCa-2fwo",
+        "name": "Kirti",
+        "surname": "Bajaj",
+        "street": "3rd A Cross Rd, Sena Vihar, Kalyan Nagar",
+        "city": "Bangalore, Karnataka",
+        "index": "560043",
+        "phone": "080 2543 5193",
+        "isOffice": true,
+        "isHome": false
+    },
+    {
+        "id": "MDbUmV67DC-dTYOLp6rmF",
+        "name": "Prabhat",
+        "surname": "Sengupta",
+        "street": "Bakerganj Shurigali, Near Rupak Cinema",
+        "city": "Patna Metropolitan Area, Bihar",
+        "index": "800004",
+        "phone": "080 2543 5193",
+        "isOffice": false,
+        "isHome": false
+    }
+]
 }

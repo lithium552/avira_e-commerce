@@ -4,9 +4,11 @@ import { useSelector } from 'react-redux'
 
 export interface PriceDetailsProps {
     buttonText: string
+    disabled: boolean
+    onClick?: () => void
 }
 
-const PriceDetails = ({buttonText}: PriceDetailsProps) => {
+const PriceDetails = ({buttonText, disabled, onClick}: PriceDetailsProps) => {
     const cartData = useSelector(state => state.cart.cart) 
 
     const calculateOrder = (data: Data[]) => {
@@ -52,7 +54,7 @@ const PriceDetails = ({buttonText}: PriceDetailsProps) => {
                     <p>Rs. {order.totalAmount}</p>
                 </div>
             </div>
-            <Button buttonText={buttonText} isArrow={true} />
+            <Button buttonText={buttonText} disabled={disabled} isArrow={true} onClick={onClick} />
             </>
             ) : null}
             </>

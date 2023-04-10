@@ -23,7 +23,6 @@ interface propsItemCard {
 
 const ItemCard = ({data} : propsItemCard) => {
   const { pathname } = useLocation()
-  console.log(pathname.split('/').at(-1))
   const dispatch = useDispatch()
   const isFavoriteHandle = (item: Data) => { 
   dispatch(updateProducts({item: item, pathname: pathname.split('/').at(-1)}))

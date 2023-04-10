@@ -2,6 +2,8 @@ import PriceDetails from '../components/PriceDetails'
 import Title from '../components/Title'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteFromCart } from '../features/cart'
+import ItemsList from '../components/ItemsList'
+import { Data } from '../components/ItemCard'
 
 
 
@@ -9,8 +11,7 @@ const Cart = () => {
     const dispatch = useDispatch()
     const stateCartData = useSelector(state => state.cart.cart)
     const cartData = stateCartData.length ? stateCartData : JSON.parse(localStorage.getItem('cartItems') || '[]')
-    console.log(cartData)
-    const deleteItemFromCart = (id: string) => dispatch(deleteFromCart(id))
+    const deleteItemFromCart = (item: Data) => dispatch(deleteFromCart(item))
     return (
         <main className='flex max-w-1440 h-[600px] items-center justify-between mx-auto px-8 mt-8'>
             <section className='flex gap-7 h-full'>
@@ -19,7 +20,8 @@ const Cart = () => {
                 </svg>
                 <div>
                 <Title length={cartData.length} title='ORDER SUMMARY' />
-                <section className='mt-10 max-w-xl max-h-[640px] pr-4 w-[33rem] overflow-auto'>
+                <ItemsList deleteItem={deleteItemFromCart} emptyText='Cart is empty...' itemsData={cartData} />
+                {/* <section className='mt-10 max-w-xl max-h-[640px] pr-4 w-[33rem] overflow-auto'>
                     {cartData.length !== 0 ? 
                         (cartData.map(item => (
                         <div key={item.id} className='border border-neutralsRule flex p-6 rounded-lg mb-6'>
@@ -70,8 +72,8 @@ const Cart = () => {
                                 </defs>
                             </svg>
                         </div>
-                    ))) : (<div>Cart is empty</div>)}
-                </section>
+                    ))) : (<div>Cart is empty...</div>)}
+                </section> */}
                 </div>
             </section>
             <div className='border-l border-neutralsRule h-full w-8'>
@@ -104,7 +106,7 @@ const Cart = () => {
                     <input className='mt-4 w-full border py-3 px-4 rounded-lg border-neutralsRule focus-visible:outline-textColorAcc' type="text" id='coupon' placeholder='Enter Coupon Code' />
                     <button className='absolute right-3 bottom-3 text-textColorAcc font-semibold '>APPLY</button>
                 </form>
-                <PriceDetails buttonText='Place Order' />
+                <PriceDetails link={'/payment'} disabled={false} buttonText='Place Order' />
             </section>
         </main>
     )

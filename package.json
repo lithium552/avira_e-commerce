@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "json": "json-server --watch ./src/db/db.json",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

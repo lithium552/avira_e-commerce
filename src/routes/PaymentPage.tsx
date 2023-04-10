@@ -1,10 +1,124 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import Title from '../components/Title'
 import { radioInputStyles } from './AddressPage'
 import PriceDetails from '../components/PriceDetails'
-import Input from '../components/Input'
+import { useNavigate } from 'react-router-dom'
+
+type CardValues = {
+  cardNumber: string;
+  nameOnCard: string;
+  exprires: string;
+  cvv: string;
+}
+
+
+const cardValuesHandler = (setCardValues: React.Dispatch<React.SetStateAction<CardValues>>, value: string, targetValue: string) => {
+  switch (value) {
+    case 'cardNumber': setCardValues(prev => ({ ...prev, [value]: targetValue }))
+      break
+    case 'nameOnCard': setCardValues(prev => ({ ...prev, [value]: targetValue }))
+      break
+    case 'exprires': setCardValues(prev => ({ ...prev, [value]: targetValue }))
+      break
+    case 'cvv': setCardValues(prev => ({ ...prev, [value]: targetValue }))
+      break
+  }
+}
 
 const PaymentPage = () => {
+  const [paymentMethod, setPaymentMethod] = useState('')
+  const [disableForm, setDisableForm] = useState(true)
+  const [disableButton, setDisableButton] = useState(true)
+  const [cardValues, setCardValues] = useState({
+    cardNumber: '',
+    nameOnCard: '',
+    exprires: '',
+    cvv: ''
+  })
+  const [cardValuesErorr, setCardValuesErorr] = useState({
+    cardNumber: '',
+    nameOnCard: '',
+    exprires: '',
+    cvv: ''
+  })
+
+  const navigate = useNavigate()
+
+  const submitPayment = () => {
+    if (paymentMethod !== 'Credit/Debit Card') {
+      localStorage.setItem('paymentMethod', JSON.stringify(paymentMethod))
+      navigate('/address')
+    }
+    const res = {
+      cardNumber: '',
+      nameOnCard: '',
+      exprires: '',
+      cvv: ''
+    }
+    setCardValuesErorr({...res})
+    if(cardValues.cardNumber.length !== 16) {
+      res.cardNumber = 'Card Number must have 16 digits'
+    }
+    if(/[^0-9]/.test(cardValues.cardNumber)) {
+      res.cardNumber = 'Card Number can be only digits'
+    }
+    if(/[^A-Za-z]/.test(cardValues.nameOnCard)) {
+      res.nameOnCard = 'Name on card must contain only characters'
+    }
+    if(cardValues.nameOnCard.length < 3) {
+      res.nameOnCard = 'Name on card must contain at least 3 characters'
+    }
+    const dividedString = cardValues.exprires.split('/')
+    if(dividedString.length === 1) {
+      res.exprires = 'Expires should have slash symbol - "/"'
+    }
+    if(/[^0-9]/g.test(dividedString[0]) && /[^0-9]/g.test(dividedString[1])) {
+      res.exprires = 'Month and year can only be a digits'
+    }
+    if(Number(dividedString[0]) < 0 && Number(dividedString[0]) - 1 > 12) {
+      res.exprires = 'Incorrect month input'
+    }
+    if(new Date(Number( `20${dividedString[1]}`), Number(dividedString[0]) - 1).getTime() < Date.now()) {
+      console.log(new Date(Number(dividedString[1]), Number(dividedString[0]) - 1))
+      res.exprires = 'Your card expired'
+    }
+    if (cardValues.cvv.length < 3) {
+      res.cvv = 'Must be 3 characters'
+    }
+    if (/[^0-9]/.test(cardValues.cvv)) {
+      res.cvv = 'Must be digits only'
+    }
+
+    if(Object.values(res).every(val => val === '')) {
+      localStorage.setItem('paymentMethod', JSON.stringify(paymentMethod))
+      localStorage.setItem('cardValues', JSON.stringify(cardValues))
+      navigate('/address')
+    }
+    setCardValuesErorr({...res})
+  }
+
+  const isVaildValues = (paymentMethod: string, cardValues: CardValues) => {
+    if (paymentMethod === 'Credit/Debit Card') {
+      const res = [...Object.values(cardValues)]
+      if (res.length && res.every(val => val)) return true
+      else return false
+    } else return false
+  }
+
+  const onRadioInputHandle = (e: React.ChangeEvent<HTMLInputElement> ) => setPaymentMethod((e.target.nextSibling as HTMLLabelElement).innerText)
+
+  useEffect(() => {
+    paymentMethod && paymentMethod !== 'Credit/Debit Card' 
+      ? setDisableButton(false)
+      : paymentMethod === 'Credit/Debit Card' && isVaildValues(paymentMethod, cardValues)
+      ? setDisableButton(false)
+      : setDisableButton(true)
+
+    if (paymentMethod === 'Credit/Debit Card') setDisableForm(false)
+    else setDisableForm(true)
+
+  }, [paymentMethod, cardValues])
+
   return (
     <main className='p-12 flex gap-4 justify-center'>
       <svg className='mt-2' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,22 +127,50 @@ const PaymentPage = () => {
       <section>
         <Title length={null} title='SELECT PAYMENT OPTION' />
         <div className='border rounded-lg mt-6 flex items-center p-4 gap-4'>
-          <input className={radioInputStyles} type="radio" name="payment" id="delivery" />
-          <label htmlFor="delivery"><p>Cash On Delivery</p></label>
+          <input
+            className={radioInputStyles}
+            type="radio"
+            name="payment"
+            id="delivery"
+            value={paymentMethod}
+            onChange={onRadioInputHandle}
+          />
+          <label htmlFor="delivery">Cash On Delivery</label>
         </div>
         <div className='border rounded-lg mt-6 flex items-center p-4 gap-4'>
-          <input className={radioInputStyles} type="radio" name="payment" id="phone" />
-          <label htmlFor="phone"><p>PhonePay/Google Pay/BHIM UPI </p></label>
+          <input
+            className={radioInputStyles}
+            type="radio"
+            name="payment"
+            id="phone"
+            value={paymentMethod}
+            onChange={onRadioInputHandle}
+          />
+          <label htmlFor="phone">PhonePay/Google Pay/BHIM UPI</label>
         </div>
         <div className='border rounded-lg mt-6 flex items-center p-4 gap-4'>
-          <input className={radioInputStyles} type="radio" name="payment" id="netbanking" />
-          <label htmlFor="netbanking"><p>Net Banking</p></label>
+          <input
+            className={radioInputStyles}
+            type="radio"
+            name="payment"
+            id="netbanking"
+            value={paymentMethod}
+            onChange={onRadioInputHandle}
+          />
+          <label htmlFor="netbanking">Net Bankin</label>
         </div>
         <div className='border rounded-lg mt-6 p-4'>
           <div className='flex items-center'>
-            <input className={radioInputStyles} type="radio" name="payment" id="card" />
+            <input
+              className={radioInputStyles}
+              type="radio"
+              name="payment"
+              id="card"
+              value={paymentMethod}
+              onChange={onRadioInputHandle}
+            />
             <label htmlFor="card" className='flex ml-4'>
-              <p>Credit/Debit Card</p>
+              Credit/Debit Card
             </label>
             <div className='flex ml-auto'>
               <div className='flex gap-4'>
@@ -46,12 +188,38 @@ const PaymentPage = () => {
               </div>
             </div>
           </div>
-          <form action="" className='flex flex-col gap-4 mt-6'>
-            <Input placeholder='Card Number' type='text' />
-            <Input placeholder='Name on Card' type='text' />
+          <form action="" className='flex flex-col gap-4 mt-6' onChange={e => console.log(e)} >
+            {/* <Input placeholder='Card Number' type='text' /> */}
+            <input 
+              disabled={disableForm}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => cardValuesHandler(setCardValues, 'cardNumber', e.target.value)}
+              className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3 w-full'
+              maxLength={16} type='text' name="" id="" placeholder='Card Number' required />
+            {cardValuesErorr.cardNumber && (<span className='text-red-600 text-xs'>{cardValuesErorr.cardNumber}</span>)}
+            <input 
+              disabled={disableForm}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => cardValuesHandler(setCardValues, 'nameOnCard', e.target.value)}
+              className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3 w-full'
+              type='text' name="" id="" placeholder='Name on Card' required />
+            {/* <Input placeholder='Name on Card' type='text' /> */}
+            {cardValuesErorr.nameOnCard && (<span className='text-red-600 text-xs'>{cardValuesErorr.nameOnCard}</span>)}
             <div className='flex gap-6'>
-              <input className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3' type="text" name="" id="" placeholder='MM/YY' required />
-              <input className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3' type="text" pattern='\[0-9]' minLength={3} maxLength={3} name="" id="" placeholder='CVV' required />
+              <div>
+              <input 
+                disabled={disableForm}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => cardValuesHandler(setCardValues, 'exprires', e.target.value)}
+                className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3 mb-4'
+                type="text" name="" id="" placeholder='MM/YY' required />
+                {cardValuesErorr.exprires && (<p className='text-red-600 text-xs'>{cardValuesErorr.exprires}</p>)}
+                </div>
+                <div>
+              <input 
+                disabled={disableForm}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => cardValuesHandler(setCardValues, 'cvv', e.target.value)}
+                className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3 mb-4'
+                type="text" pattern='\[0-9]' minLength={3} maxLength={3} name="" id="" placeholder='CVV' required />
+                {cardValuesErorr.cvv && (<p className='text-red-600 text-xs'>{cardValuesErorr.cvv}</p>)}
+                </div>
             </div>
           </form>
         </div>
@@ -95,13 +263,15 @@ const PaymentPage = () => {
               </clipPath>
             </defs>
           </svg>
-
         </div>
       </section>
       <div className='border-l border-neutralsRule h-[640px] mx-12'>
-            </div>
-            <div className='w-[33rem]'>
-      <PriceDetails buttonText='Pay and Place Order' />
+      </div>
+      <div className='w-[33rem]'>
+        <PriceDetails
+          onClick={submitPayment}
+          disabled={disableButton}
+          buttonText='Pay and Place Order' />
       </div>
     </main>
   )

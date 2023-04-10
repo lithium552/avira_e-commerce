@@ -18,6 +18,7 @@ import SingUpPage from './routes/SingUpPage'
 import SingInPage from './routes/SingInPage'
 import strore from './app/strore'
 import { Provider } from 'react-redux'
+import FavoriteItems from './routes/FavoriteItems'
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
         path: '/order',
         element: <OrderPlaced />
       },
+      {
+        path: '/favorite',
+        element: <FavoriteItems />
+      },
     ]
   },
   {
@@ -91,6 +96,7 @@ const router = createBrowserRouter([
     path: '/sing-in',
     element: <SingInPage />
   },
+
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

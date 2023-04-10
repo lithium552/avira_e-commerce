@@ -27,7 +27,7 @@ const data = [
 
 const HomePage = () => {
     return (
-        <main className='p-16 w-4/5 grid grid-rows-[auto_auto] grid-cols-[1.4fr_1fr_1fr] h-fit gap-x-8 gap-y-8 mx-auto justify-center pt-10 pb-0'>
+        <main className='p-16 w-4/5 grid grid-rows-[auto_auto] grid-cols-[1.4fr_1fr_1fr] h-fit gap-x-8 gap-y-8 mx-auto justify-center pt-10 pb-0 max-w-1440'>
             <div className='row-start-1 row-end-3  relative '>
                 <img className='' src="./src/assets/image1.png" alt="" />
                 <div className='absolute top-6 left-6'>

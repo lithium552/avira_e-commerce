@@ -6,13 +6,22 @@ const initialState = {
     allProducts: [],
     status: 'idle',
     error: null
-  }
+}
 
-  export const fetchAllProducts = createAsyncThunk('allProducts/fetchAllProducts', async () => {
+export const fetchAllProducts = createAsyncThunk('allProducts/fetchAllProducts', async () => {
     const fetch = await axios.get('http://localhost:3000/db')
-    const res = Object.values(fetch.data).reduce((prev, curr) => prev.concat(...curr) , [])
+    const entries = Object.entries(fetch.data)
+    const res = entries.reduce((prev, cuur) => cuur[1].map(item => ({ ...item, ['category']: cuur[0] })).concat(prev), [])
+    // const res = Object.values(fetch.data).reduce((prev, curr) => prev.concat(...curr) , [])
     return res
-  })
+})
+
+export const deleteFromFavorite = createAsyncThunk('allProducts/deleteFromFavorite', async (item) => {
+    const newItem = {...item, isFavorite: false}
+    delete newItem.category
+    const fetch = await axios.put(`http://localhost:3000/${item.category}/${item.id}`, newItem)
+    return item
+})
 
 
 const allProductsSlice = createSlice({
@@ -21,8 +30,12 @@ const allProductsSlice = createSlice({
     reducers: {
         addToFavorite: (state, action) => {
             const res = state.allProducts.find((item: Data) => item.id === action.payload.id)
-            res.isFavorite = !res.isFavorite
-        } 
+            res.isFavorite = true
+        },
+        // deleteFromFavorite: (state, action) => {
+        //     const res = state.allProducts.find((item: Data) => item.id === action.payload.id)
+        //     res.isFavorite = false
+        // } 
     },
     extraReducers(builer) {
         builer
@@ -32,11 +45,14 @@ const allProductsSlice = createSlice({
             .addCase(fetchAllProducts.fulfilled, (state, action) => {
                 state.status = 'succeeded'
                 if (!state.allProducts.length) state.allProducts = state.allProducts.concat(action.payload)
-                console.log(state.allProducts)
             })
             .addCase(fetchAllProducts.rejected, (state, action) => {
                 state.status = 'failed'
-                state.error = action.error.message 
+                state.error = action.error.message
+            })
+            .addCase(deleteFromFavorite.fulfilled, (state, action) => {
+                const res = state.allProducts.find(item => item.id === action.payload.id)
+                res.isFavorite = false
             })
     }
 })

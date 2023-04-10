@@ -9,16 +9,18 @@ import { useLocation } from 'react-router-dom'
 
 const Products = () => {
     const { pathname } = useLocation()
-    console.log(pathname)
     const dispatch = useDispatch()
-    const data = useSelector(selectProducts)
     const status = useSelector(state => state.products.status)
     const productType = pathname.split('/').at(-1) 
+    console.log(productType)
     useEffect(() => {
-        if (status === 'idle') {
+        // if (status === 'idle') {
+            console.log('Effect', productType)
             dispatch(fetchProducts(productType))
-        }
-    }, [status, dispatch])
+        // }
+    }, [productType])
+    const data = useSelector(selectProducts)
+    console.log(status)
     let content 
     if (status === 'loading') {
         content = <div>Loading...</div>

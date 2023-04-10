@@ -1,49 +1,63 @@
 import React from 'react'
 import Title from '../components/Title'
 import PriceDetails from '../components/PriceDetails'
+import { nanoid } from '@reduxjs/toolkit'
+import EditFormAddress from '../components/EditFormAddress'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { fetchAddressData } from '../features/cart'
+import { selectAllAddresses } from '../features/cart'
 
-
-const addressData = [
-    {
-        id: 1,
-        name: 'Salem',
-        surname: 'Mirza',
-        street: 'Kochi - Kanyakumari Hwy, Palayam',
-        city: 'Thiruvananthapuram, Kerala',
-        index: 695001,
-        phone: '0471 247 0240',
-        isOffice: false,
-        isHome: true,
-    },
-    {
-        id: 2,
-        name: 'Kirti',
-        surname: 'Bajaj',
-        street: '3rd A Cross Rd, Sena Vihar, Kalyan Nagar',
-        city: 'Bangalore, Karnataka',
-        index: 560043,
-        phone: '080 2543 5193',
-        isOffice: true,
-        isHome: false,
-    },
-    {
-        id: 3,
-        name: 'Prabhat',
-        surname: 'Sengupta',
-        street: 'Bakerganj Shurigali, Near Rupak Cinema',
-        city: 'Patna Metropolitan Area, Bihar',
-        index: 800004,
-        phone: '080 2543 5193',
-        isOffice: false,
-        isHome: false,
-    },
-]
+type AddressData = {
+    id: string,
+    name: string,
+    surname: string,
+    street: string,
+    city: string,
+    index: string,
+    phone: string,
+    isOffice: boolean,
+    isHome: boolean,
+}
 
 export const radioInputStyles = 'appearance-none bg-white w-4 h-4 rounded-full border border-neutralsRule checked:border-textColorAcc checked:border-4'
 
 const AddressPage = () => {
-    const [inputValue, setInputValue] = React.useState(addressData[0].id)
+    const status = useSelector(state => state.cart.addresses.status)
+    const allAddressData = useSelector(selectAllAddresses)
+    const [addressData, setAddressData] = React.useState<AddressData>()
+    const [radioInputValue, setRadioInputValue] = React.useState([])
+    const [editInputValues, setEditInputValues] = React.useState({
+        id: '',
+        name: '',
+        surname: '',
+        street: '',
+        city: '',
+        index: '',
+        phone: '',
+        isOffice: false,
+        isHome: false,
+    })
+    
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(fetchAddressData())
+        setAddressData(allAddressData)
+    },[allAddressData])
+    
 
+
+
+    const onSelectHandle = (e) => {
+        if (e.target.value === 'office') setEditInputValues(prev => ({...prev, isOffice: true, isHome: false}))
+        if (e.target.value === 'home') setEditInputValues(prev => ({...prev, isHome: true, isOffice: false}))
+        if (e.target.value === '') setEditInputValues(prev => ({...prev, isHome: false, isOffice: false}))
+    }
+
+    const onSubmitEditFormHandle = (e) => {
+        e.preventDefault()
+        setEditInputValues(prev => ({...prev, id: nanoid()}))
+    }
     return (
         <main className='p-12 flex gap-4 justify-center'>
             <svg className='mt-4' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,14 +69,16 @@ const AddressPage = () => {
                     <button className='px-6 py-3 border border-textColorAcc rounded-lg text-textColorAcc'>ADD NEW ADDRESS</button>
                 </section>
                 <section className='flex flex-col gap-6 '>
-                    {addressData.map(address => (
-                        <div key={address.id} className='border border-neutralsRule rounded-lg flex py-6 pr-6'>
+                    {status === 'loading' && <div>Loading...</div>}
+                    {status === 'succeeded' && addressData?.length && addressData.map(address => (
+                        <div key={address.id} >
+                        <div className='border border-neutralsRule rounded-lg flex py-6 pr-6'>
                             <input className={'mx-6 ' + radioInputStyles}
-                                onChange={() => setInputValue(address.id)}
+                                onChange={() => setRadioInputValue(address.id)}
                                 value={address.id}
                                 type="radio"
                                 id={address.street}
-                                checked={address.id === inputValue} />
+                                checked={address.id === radioInputValue} />
                             <label htmlFor={address.street} className='text-sm'>
                                 <div className='flex gap-4 items-center mb-1'>
                                     <p className='font-semibold'>{address.name + ' ' + address.surname}</p>
@@ -80,7 +96,8 @@ const AddressPage = () => {
                                 <p className='mb-1'>{address.index}</p>
                                 <p>Mobile: <strong>{address.phone}</strong></p>
                             </label>
-                            {address.id === inputValue && (<div className='flex gap-4 ml-auto'>
+                            
+                            {address.id === radioInputValue && (<div className='flex gap-4 ml-auto'>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3043 2.75 17.863 2.75C18.421 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.571 21.275 6.113C21.2917 6.65433 21.1083 7.11667 20.725 7.5L19.3 8.925ZM17.85 10.4L7.25 21H3V16.75L13.6 6.15L17.85 10.4Z" fill="#737373" />
                                 </svg>
@@ -89,13 +106,22 @@ const AddressPage = () => {
                                 </svg>
                             </div>)}
                         </div>
+                            {address.id === radioInputValue &&
+                            (<EditFormAddress 
+                                key={address.id}
+                                {...address}
+                                editInputValues={editInputValues}
+                                setEditInputValues={setEditInputValues}
+                                onSelectHandle={onSelectHandle}
+                            />)}
+                            </div>
                     ))}
                 </section>
             </section>
             <div className='border-l border-neutralsRule h-[640px] mx-12'>
             </div>
             <div className='w-[33rem]'>
-                <PriceDetails buttonText='Continue' />
+                <PriceDetails disabled={false} buttonText='Continue' />
             </div>
         </main>
     )
