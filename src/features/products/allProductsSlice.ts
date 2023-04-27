@@ -9,17 +9,14 @@ const initialState = {
 }
 
 export const fetchAllProducts = createAsyncThunk('allProducts/fetchAllProducts', async () => {
-    const fetch = await axios.get('http://localhost:3000/db')
-    const entries = Object.entries(fetch.data)
-    const res = entries.reduce((prev, cuur) => cuur[1].map(item => ({ ...item, ['category']: cuur[0] })).concat(prev), [])
-    // const res = Object.values(fetch.data).reduce((prev, curr) => prev.concat(...curr) , [])
-    return res
+    const fetch = await axios.get('http://localhost:3000/products/all')
+    return fetch.data
 })
 
 export const deleteFromFavorite = createAsyncThunk('allProducts/deleteFromFavorite', async (item) => {
     const newItem = {...item, isFavorite: false}
     delete newItem.category
-    const fetch = await axios.put(`http://localhost:3000/${item.category}/${item.id}`, newItem)
+    const fetch = await axios.put(`http://localhost:3000/products/${item.category}/${item.id}`, newItem)
     return item
 })
 
@@ -32,10 +29,6 @@ const allProductsSlice = createSlice({
             const res = state.allProducts.find((item: Data) => item.id === action.payload.id)
             res.isFavorite = true
         },
-        // deleteFromFavorite: (state, action) => {
-        //     const res = state.allProducts.find((item: Data) => item.id === action.payload.id)
-        //     res.isFavorite = false
-        // } 
     },
     extraReducers(builer) {
         builer

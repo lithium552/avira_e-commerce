@@ -1,11 +1,10 @@
 {
-  "name": "hekto_e-commerce",
+  "name": "avira_e-commerce",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "json": "json-server --watch ./src/db/db.json",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

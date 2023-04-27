@@ -5,7 +5,7 @@ import { nanoid } from '@reduxjs/toolkit'
 import EditFormAddress from '../components/EditFormAddress'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { fetchAddressData } from '../features/cart'
+import { fetchAddressData, editAddressData, addNewAddressData, deleteAddressData } from '../features/cart'
 import { selectAllAddresses } from '../features/cart'
 
 type AddressData = {
@@ -20,33 +20,29 @@ type AddressData = {
     isHome: boolean,
 }
 
+const intialStateForUnputValues = {
+    id: '',
+    name: '',
+    surname: '',
+    street: '',
+    city: '',
+    index: '',
+    phone: '',
+    isOffice: false,
+    isHome: false,
+}
+
 export const radioInputStyles = 'appearance-none bg-white w-4 h-4 rounded-full border border-neutralsRule checked:border-textColorAcc checked:border-4'
 
 const AddressPage = () => {
     const status = useSelector(state => state.cart.addresses.status)
     const allAddressData = useSelector(selectAllAddresses)
-    const [addressData, setAddressData] = React.useState<AddressData>()
-    const [radioInputValue, setRadioInputValue] = React.useState([])
-    const [editInputValues, setEditInputValues] = React.useState({
-        id: '',
-        name: '',
-        surname: '',
-        street: '',
-        city: '',
-        index: '',
-        phone: '',
-        isOffice: false,
-        isHome: false,
-    })
-    
+    const [addressData, setAddressData] = React.useState<AddressData[]>([])
+    const [radioInputValue, setRadioInputValue] = React.useState()
+    const [isOpenEditForm, setIsOpenEditForm] = React.useState(false)
+    const [isOpenAddNewForm, setIsOpenAddNewForm] = React.useState(false)
+    const [editInputValues, setEditInputValues] = React.useState(intialStateForUnputValues)
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(fetchAddressData())
-        setAddressData(allAddressData)
-    },[allAddressData])
-    
-
-
 
     const onSelectHandle = (e) => {
         if (e.target.value === 'office') setEditInputValues(prev => ({...prev, isOffice: true, isHome: false}))
@@ -54,10 +50,35 @@ const AddressPage = () => {
         if (e.target.value === '') setEditInputValues(prev => ({...prev, isHome: false, isOffice: false}))
     }
 
-    const onSubmitEditFormHandle = (e) => {
+    const onSubmitEditAddressFormHandle = (e) => {
         e.preventDefault()
-        setEditInputValues(prev => ({...prev, id: nanoid()}))
+        console.log(editInputValues)
+        dispatch(editAddressData(editInputValues))
+        setIsOpenEditForm(false)
     }
+
+    const onSubmitAddNewAddressFormHandle = (e) => {
+        e.preventDefault()
+        console.log(editInputValues)
+        dispatch(addNewAddressData({...editInputValues, id: nanoid()}))
+        setIsOpenAddNewForm(false)
+    }
+
+    const onDeleteAddressHandle = (id: string) => {
+        dispatch(deleteAddressData(id))
+    }
+    
+    useEffect(() => {
+        console.log('useeffect', addressData)
+        dispatch(fetchAddressData())
+        if(allAddressData) setAddressData(allAddressData)
+    },[allAddressData])
+
+    const addNewAddressButtonHandle = () => {
+        setIsOpenAddNewForm(true) 
+        setEditInputValues({...intialStateForUnputValues})
+    }
+
     return (
         <main className='p-12 flex gap-4 justify-center'>
             <svg className='mt-4' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,11 +87,19 @@ const AddressPage = () => {
             <section className='max-w-[33rem]'>
                 <section className='flex mb-10 gap-4'>
                     <Title length={null} title='SELECT DELIVERY ADDRESS' />
-                    <button className='px-6 py-3 border border-textColorAcc rounded-lg text-textColorAcc'>ADD NEW ADDRESS</button>
+                    <button onClick={addNewAddressButtonHandle} className='px-6 py-3 border border-textColorAcc rounded-lg text-textColorAcc'>ADD NEW ADDRESS</button>
                 </section>
+                {isOpenAddNewForm && <EditFormAddress 
+                                setIsOpenEditForm={setIsOpenAddNewForm}
+                                setEditInputValues={setEditInputValues}
+                                editInputValues={editInputValues}
+                                onSubmitFormHandle={onSubmitAddNewAddressFormHandle}
+                                onSelectHandle={onSelectHandle}
+                            />}
                 <section className='flex flex-col gap-6 '>
                     {status === 'loading' && <div>Loading...</div>}
-                    {status === 'succeeded' && addressData?.length && addressData.map(address => (
+                    {status === 'succeeded' && addressData?.length &&
+                    addressData.map((address: AddressData) => (
                         <div key={address.id} >
                         <div className='border border-neutralsRule rounded-lg flex py-6 pr-6'>
                             <input className={'mx-6 ' + radioInputStyles}
@@ -98,21 +127,22 @@ const AddressPage = () => {
                             </label>
                             
                             {address.id === radioInputValue && (<div className='flex gap-4 ml-auto'>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg onClick={() => setIsOpenEditForm(true)} className='hover: cursor-pointer' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3043 2.75 17.863 2.75C18.421 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.571 21.275 6.113C21.2917 6.65433 21.1083 7.11667 20.725 7.5L19.3 8.925ZM17.85 10.4L7.25 21H3V16.75L13.6 6.15L17.85 10.4Z" fill="#737373" />
                                 </svg>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg onClick={() => onDeleteAddressHandle(address.id)} className='hover: cursor-pointer' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM19 4H15.5L14.5 3H9.5L8.5 4H5V6H19V4Z" fill="#737373" />
                                 </svg>
                             </div>)}
                         </div>
-                            {address.id === radioInputValue &&
+                            {isOpenEditForm && address.id === radioInputValue && 
                             (<EditFormAddress 
-                                key={address.id}
-                                {...address}
-                                editInputValues={editInputValues}
+                                setIsOpenEditForm={setIsOpenEditForm}
                                 setEditInputValues={setEditInputValues}
+                                editInputValues={editInputValues}
+                                onSubmitFormHandle={onSubmitEditAddressFormHandle}
                                 onSelectHandle={onSelectHandle}
+                                {...address}
                             />)}
                             </div>
                     ))}

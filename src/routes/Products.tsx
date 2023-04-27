@@ -11,6 +11,7 @@ const Products = () => {
     const { pathname } = useLocation()
     const dispatch = useDispatch()
     const status = useSelector(state => state.products.status)
+    const state = useSelector(state => state)
     const productType = pathname.split('/').at(-1) 
     console.log(productType)
     useEffect(() => {

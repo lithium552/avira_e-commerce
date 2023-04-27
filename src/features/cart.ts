@@ -6,6 +6,20 @@ export const fetchAddressData = createAsyncThunk('addresses/fetchAddressData', a
     return res.data
 })
 
+export const editAddressData = createAsyncThunk('addresses/editAddressData', async (data) => {
+    const res = await axios.put(`http://localhost:3000/addresses/${data.id}`, {...data})
+    return res.data
+})
+
+export const addNewAddressData = createAsyncThunk('addresses/addNewAddressData', async (data) => {
+    const res = await axios.post('http://localhost:3000/addresses/', {...data})
+    return res.data
+})
+export const deleteAddressData = createAsyncThunk('addresses/deleteAddressData', async (id) => {
+    await axios.delete(`http://localhost:3000/addresses/${id}`)
+    return id
+})
+
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
@@ -44,6 +58,19 @@ const cartSlice = createSlice({
             })
             .addCase(fetchAddressData.rejected, (state, action) => {
                 state.addresses.status = 'error'
+            })
+            .addCase(editAddressData.fulfilled, (state, action) => {
+                state.addresses.addresses = action.payload
+            })
+            .addCase(addNewAddressData.fulfilled, (state, action) => {
+                state.addresses.addresses.push(action.payload)
+            })
+            .addCase(deleteAddressData.fulfilled, (state, action) => {
+                console.log(action.payload)
+                const res = state.addresses.addresses.filter(item => action.payload !== item.id)
+                console.log(res)
+                state.addresses.addresses = res
+                console.log(state.addresses.addresses)
             })
     }
 })

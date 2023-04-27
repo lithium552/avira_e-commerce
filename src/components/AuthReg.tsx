@@ -1,6 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Input from './Input'
 import Button from './Button'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { userRegister, userLogin, cleanUp } from '../features/user'
+import axios from 'axios'
 
 interface AuthRegProps {
     heading: string
@@ -12,6 +16,50 @@ interface AuthRegProps {
 const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
     const [isSwitcherOn, setIsSwitcherOn] = useState(true)
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
+
+    const status = useSelector(state => state.user.status)
+    const errorMessage = useSelector(state => state.user.errorMessage)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+
+        if (status === 'succeeded' && !isReg) navigate('/categories')
+    }, [status])
+
+    // const fetchData = async ( email, password ) => {
+    //     try {
+    //         const res = await axios.post('http://localhost:3000/user/login', { email: email, password: password }, { withCredentials: true })
+    //         console.log(res)
+    //         return res.data
+    //     } catch (error) {
+    //         console.log(error.response.data.message)
+    //         throw new Error(error.response.data.message)
+    //     }
+    // }
+
+    const sumbmitFormHandle = (e) => {
+        e.preventDefault()
+        // fetchData(email, password)
+        if (isReg) {
+            dispatch(userRegister({email, password}))
+            dispatch(cleanUp())
+        }
+        else {
+            dispatch(userLogin({email, password}))
+            dispatch(cleanUp())
+        }
+        console.log('submit', isReg)
+    }
+
+
+    let content
+
+    if (status === 'succeeded' && isReg) content = <span>Now you can <Link to='/sing-in' className='text-textColorAcc font-semibold'>login</Link></span>
+    else if (status === 'error' && isReg) content = <span className='text-textColorAcc'>{errorMessage}</span>
+    else if (status === 'error' && !isReg) content = <span className='text-textColorAcc'>{errorMessage}</span>
 
     return (
         <main className='flex'>
@@ -68,7 +116,7 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
                     </defs>
                 </svg>
                 <svg width="904" height="544" viewBox="0 0 904 544" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_29_2084)">
+                    <g clipPath="url(#clip0_29_2084)">
                         <path d="M311.942 34.8547H188.661C182.188 34.8547 176.94 40.099 176.94 46.5683V205.004C176.94 211.474 182.188 216.718 188.661 216.718H311.942C318.415 216.718 323.663 211.474 323.663 205.004V46.5683C323.663 40.099 318.415 34.8547 311.942 34.8547Z" fill="#EFAF00" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M277.821 34.8547H263.56V216.886H277.821V34.8547Z" fill="#1C0E0C" />
                         <path d="M712.059 301.691H835.341C841.814 301.691 847.061 296.447 847.061 289.978V170.035C847.061 163.565 841.814 158.321 835.341 158.321L712.059 158.321C705.586 158.321 700.338 163.565 700.338 170.035V289.978C700.338 296.447 705.586 301.691 712.059 301.691Z" fill="#C5DCDD" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -282,31 +330,32 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
                 </svg>
             </section>
             <section className='w-full flex items-center'>
-                <form action="" className='w-96 flex flex-col gap-6 mx-auto'>
+                <form onSubmit={sumbmitFormHandle} action="" className='w-96 flex flex-col gap-6 mx-auto'>
                     <div>
                         <h1 className='text-2xl font-semibold'>{heading}</h1>
                         {subHeading && <p className='text-textColorTertiary text-sm mt-2'>{subHeading}</p>}
                     </div>
-                    <Input placeholder='Email or phone number' type='text' />
+                    <Input setInputValue={setEmail} placeholder='Email' type='email' />
                     <div className='w-full relative'>
-                        <Input placeholder='Enter password' type={isPasswordVisible ? 'text' : 'password'} />
+                        <Input setInputValue={setPassword} placeholder='Enter password' type={isPasswordVisible ? 'text' : 'password'} />
                         <svg onClick={() => setIsPasswordVisible(prev => !prev)} className='cursor-pointer absolute right-4 bottom-4' width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8 2.66667C4.36364 2.66667 1.25818 4.92849 0 8.12122C1.25818 11.3139 4.36364 13.5758 8 13.5758C11.6364 13.5758 14.7418 11.3139 16 8.12122C14.7418 4.92849 11.6364 2.66667 8 2.66667ZM8 11.7576C5.99273 11.7576 4.36364 10.1285 4.36364 8.12122C4.36364 6.11394 5.99273 4.48485 8 4.48485C10.0073 4.48485 11.6364 6.11394 11.6364 8.12122C11.6364 10.1285 10.0073 11.7576 8 11.7576ZM8 5.9394C6.79273 5.9394 5.81818 6.91394 5.81818 8.12122C5.81818 9.32849 6.79273 10.303 8 10.303C9.20727 10.303 10.1818 9.32849 10.1818 8.12122C10.1818 6.91394 9.20727 5.9394 8 5.9394Z" fill="#737373" />
                         </svg>
                     </div>
+                    {content && <div>{content}</div>}
                     <div className='flex justify-between items-center mb-[-2rem]'>
                         <div className='flex gap-2 items-center'>
                             {isSwitcherOn ? (
                                 <svg onClick={() => setIsSwitcherOn(false)} className='cursor-pointer' width="40" height="20" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_8_49)">
-                                        <rect x="0.25" y="0.25" width="39.5" height="19.5" rx="9.75" fill="#DB6B97" stroke="#F6F6F6" stroke-width="0.5" />
+                                    <g clipPath="url(#clip0_8_49)">
+                                        <rect x="0.25" y="0.25" width="39.5" height="19.5" rx="9.75" fill="#DB6B97" stroke="#F6F6F6" strokeWidth="0.5" />
                                         <g filter="url(#filter0_d_8_49)">
                                             <rect x="22" y="2" width="16" height="16" rx="8" fill="#F6F6F6" />
                                         </g>
                                     </g>
                                     <defs>
-                                        <filter id="filter0_d_8_49" x="22" y="2" width="18" height="18" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                        <filter id="filter0_d_8_49" x="22" y="2" width="18" height="18" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                                            <feFlood floodOpacity="0" result="BackgroundImageFix" />
                                             <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                                             <feMorphology radius="1" operator="erode" in="SourceAlpha" result="effect1_dropShadow_8_49" />
                                             <feOffset dx="1" dy="1" />
@@ -321,15 +370,15 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
                                     </defs>
                                 </svg>) : (
                                 <svg onClick={() => setIsSwitcherOn(true)} className='cursor-pointer' width="40" height="20" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_8_49)">
-                                        <rect x="0.25" y="0.25" width="39.5" height="19.5" rx="9.75" fill="#DB6B97" stroke="#F6F6F6" stroke-width="0.5" />
+                                    <g clipPath="url(#clip0_8_49)">
+                                        <rect x="0.25" y="0.25" width="39.5" height="19.5" rx="9.75" fill="#DB6B97" stroke="#F6F6F6" strokeWidth="0.5" />
                                         <g filter="url(#filter0_d_8_49)">
                                             <rect x="3" y="2" width="16" height="16" rx="8" fill="#F6F6F6" />
                                         </g>
                                     </g>
                                     <defs>
-                                        <filter id="filter0_d_8_49" x="3" y="2" width="18" height="18" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                                        <filter id="filter0_d_8_49" x="3" y="2" width="18" height="18" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                                            <feFlood floodOpacity="0" result="BackgroundImageFix" />
                                             <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                                             <feMorphology radius="1" operator="erode" in="SourceAlpha" result="effect1_dropShadow_8_49" />
                                             <feOffset dx="1" dy="1" />
@@ -345,9 +394,9 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
                                 </svg>
                             )
                             }
-                            <p className='text-xs'>{isReg ? (
+                            <div className='text-xs'>{isReg ? (
                                 <p className='text-xs'>I accept the <a href="#" className='text-textColorAcc'>Terms of Service</a> and <a href="#" className='text-textColorAcc'>Privacy Policy.</a></p>
-                            ) : (<p className='text-xs'>Remember me</p>)}</p>
+                            ) : (<p className='text-xs'>Remember me</p>)}</div>
                         </div>
                         {!isReg && <p className='text-xs'>Forgot password?</p>}
                     </div>
@@ -355,12 +404,12 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
                     <hr className='border-1 mt-4 w-full' />
                     {!isReg ? (<div className='text-xs flex gap-2 justify-center mt--4'>
                         <p className='text-textColorTertiary'>Don’t have an account?</p>
-                        <a href="#" className='text-textColorAcc font-semibold'>Get Started</a>
+                        <Link to='/sing-up' className='text-textColorAcc font-semibold'>Get Started</Link>
                     </div>) :
                         (
                             <div className='text-xs flex gap-2 justify-center mt--4'>
                                 <p className='text-textColorTertiary'>Already have an account?</p>
-                                <a href="#" className='text-textColorAcc font-semibold'>Login now</a>
+                                <Link to='/sing-in' className='text-textColorAcc font-semibold'>Login now</Link>
                             </div>
                         )
                     }

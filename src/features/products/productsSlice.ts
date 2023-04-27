@@ -8,13 +8,14 @@ const initialState = {
   }
 
   export const fetchProducts = createAsyncThunk('products/fetchProducts', async (products: string) => {
-    const res = await axios.get(`http://localhost:3000/${products}`)
+    const res = await axios.get(`http://localhost:3000/products/${products}`)
     return res.data
   })
 
   export const updateProducts = createAsyncThunk('products/updateProducts', async (data) => {
-    const res = await axios.put(`http://localhost:3000/${data.pathname}/${data.item.id}`, {...data.item, isFavorite: !data.item.isFavorite})
-    return res.data
+    console.log(data)
+    await axios.post('http://localhost:3000/products/all', {id : data._id, isFavorite: !data.isFavorite})
+    return data
   })
 
 const productsSlice = createSlice({
@@ -36,7 +37,9 @@ const productsSlice = createSlice({
                 state.error = action.error.message 
             })
             .addCase(updateProducts.fulfilled, (state, action) => {
-                const res = state.products.find(item => action.payload.id === item.id)
+                console.log(action.payload)
+                const res = state.products.find(item => action.payload._id === item._id)
+                console.log(res)
                 res.isFavorite = !res.isFavorite
             })
     }
