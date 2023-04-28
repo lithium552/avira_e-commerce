@@ -25,10 +25,7 @@ const allProductsSlice = createSlice({
     name: 'allProducts',
     initialState,
     reducers: {
-        addToFavorite: (state, action) => {
-            const res = state.allProducts.find((item: Data) => item.id === action.payload.id)
-            res.isFavorite = true
-        },
+
     },
     extraReducers(builer) {
         builer
@@ -51,7 +48,7 @@ const allProductsSlice = createSlice({
 })
 
 export default allProductsSlice.reducer
-export const { addToFavorite } = allProductsSlice.actions
+
 export const selectAllFavoriteProducts = state => state.allProducts.allProducts.filter(item => item.isFavorite === true)
 export const selectAllProducts = state => state.allProducts.allProducts
 export const selectAllSlashedProducts = state => state.allProducts.allProducts.filter(prod => prod.oldPrice !== null)

@@ -1,8 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../features/cart'
 import { updateProducts } from '../features/products/productsSlice'
-import { useLocation } from 'react-router-dom'
-import { addToFavorite } from '../features/products/allProductsSlice'
+import { addToFavorite } from '../features/products/productsSlice'
 
 export interface Data {
   _id: string
@@ -22,11 +21,11 @@ interface propsItemCard {
 // flex justify-between w-full flex-wrap
 
 const ItemCard = ({ data }: propsItemCard) => {
-  const { pathname } = useLocation()
   const dispatch = useDispatch()
   const isFavoriteHandle = (item: Data) => {
-    dispatch(updateProducts(item))
-    dispatch(addToFavorite(item))
+    if(localStorage.getItem('user')) dispatch(updateProducts(item))
+    else dispatch(addToFavorite(item))
+    console.log(item)
   }
   return (
     <>

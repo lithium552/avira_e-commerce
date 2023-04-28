@@ -22,7 +22,7 @@ export const userLogin = createAsyncThunk('user/userLogin', async ({email, passw
         throw new Error(error.response.data.message)
     }
 })
-export const userLogout = createAsyncThunk('user/userLogin', async () => {
+export const userLogout = createAsyncThunk('user/userLogout', async () => {
     try {
     const res = await axios.post('http://localhost:3000/user/logout', {email: JSON.parse(localStorage.getItem('user'))}, {withCredentials: true})
     console.log(res)
@@ -36,7 +36,7 @@ export const userLogout = createAsyncThunk('user/userLogin', async () => {
 const initialState = {
     status: 'idle',
     errorMessage: '',
-    currentUser: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : ''
+    currentUser: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : ''
   }
 
 const userSlice = createSlice({
@@ -66,10 +66,25 @@ const userSlice = createSlice({
             .addCase(userLogin.fulfilled, (state, action) => {
                 console.log(action.payload)
                 localStorage.setItem('user', JSON.stringify(action.payload.email))
+                state.currentUser = JSON.parse(localStorage.getItem('user'))
                 state.status = 'succeeded'
                 
             })
             .addCase(userLogin.rejected, (state, action) => {
+                state.status = 'error'
+                state.errorMessage = action.error.message
+            })
+            .addCase(userLogout.pending, (state, action) => {
+                state.status = 'loading'
+            })
+            .addCase(userLogout.fulfilled, (state, action) => {
+                console.log(action.payload)
+                localStorage.removeItem('user')
+                state.currentUser = ''
+                // state.status = 'succeeded'
+                
+            })
+            .addCase(userLogout.rejected, (state, action) => {
                 state.status = 'error'
                 state.errorMessage = action.error.message
             })
