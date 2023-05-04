@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const initialState = {
     products: [],
+    favorites: [],
     status: 'idle',
     error: null
 }
@@ -12,10 +13,16 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async (p
     return res.data
 })
 
-export const updateProducts = createAsyncThunk('products/updateProducts', async (data) => {
-    console.log(data)
-    await axios.post('http://localhost:3000/products/all', { id: data._id, isFavorite: !data.isFavorite })
-    return data
+export const fetchFavoriteProducts = createAsyncThunk('products/fetchFavoriteProducts', async (user) => {
+    const res = await axios.get('http://localhost:3000/products/getFavorites', {withCredentials: true})
+    console.log(res.data)
+    return res.data
+})
+
+export const updateProducts = createAsyncThunk('products/updateProducts', async ({favorites, email, isFavorite}) => {
+    const res = await axios.post('http://localhost:3000/products/favorite', { favorites: favorites, email: (email ? email : ''), isFavorite }, { withCredentials: true })
+    console.log(favorites, email, res.data)
+    return res.data
 })
 
 const productsSlice = createSlice({
@@ -36,19 +43,6 @@ const productsSlice = createSlice({
                     localStorage.setItem('products', JSON.stringify(prev))
                 }
             } else localStorage.setItem('products', JSON.stringify([res]))
-            // console.log(prev)
-            // if (prev) {
-            //     prev.push(res)
-            //     const filteredData = state.products.map(item => {
-            //         const prevItem = prev.find(prevItem => prevItem._id === item._id) 
-            //         if(prevItem) return prevItem
-            //         else return item
-            //     })
-            //     localStorage.setItem('products', JSON.stringify(filteredData))
-            //     state.products = filteredData
-            // } else {
-            //     localStorage.setItem('products', JSON.stringify([res]))
-            // }
         },
     },
     extraReducers(builer) {
@@ -79,9 +73,12 @@ const productsSlice = createSlice({
             })
             .addCase(updateProducts.fulfilled, (state, action) => {
                 console.log(action.payload)
-                const res = state.products.find(item => action.payload._id === item._id)
-                console.log(res)
-                res.isFavorite = !res.isFavorite
+                state.favorites = action.payload.items
+                localStorage.removeItem('products')
+            })
+            .addCase(fetchFavoriteProducts.fulfilled, (state, action) => {
+                console.log(action.payload)
+                state.favorites = action.payload
             })
     }
 })
@@ -89,3 +86,4 @@ const productsSlice = createSlice({
 export default productsSlice.reducer
 export const { addToFavorite } = productsSlice.actions
 export const selectProducts = state => state.products.products
+export const selectFavoriteProducts = state => state.products.favorites

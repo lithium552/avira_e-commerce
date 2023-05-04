@@ -4,7 +4,7 @@ import Button from './Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { userRegister, userLogin, cleanUp } from '../features/user'
-import axios from 'axios'
+import { updateProducts } from '../features/products/productsSlice'
 
 interface AuthRegProps {
     heading: string
@@ -25,29 +25,21 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-
         if (status === 'succeeded' && !isReg) navigate('/categories')
     }, [status])
 
-    // const fetchData = async ( email, password ) => {
-    //     try {
-    //         const res = await axios.post('http://localhost:3000/user/login', { email: email, password: password }, { withCredentials: true })
-    //         console.log(res)
-    //         return res.data
-    //     } catch (error) {
-    //         console.log(error.response.data.message)
-    //         throw new Error(error.response.data.message)
-    //     }
-    // }
 
     const sumbmitFormHandle = (e) => {
         e.preventDefault()
-        // fetchData(email, password)
         if (isReg) {
             dispatch(userRegister({email, password}))
             dispatch(cleanUp())
         }
-        else {
+        else {        
+            if(JSON.parse(localStorage.getItem('products'))) {
+                const favoritesData = JSON.parse(localStorage.getItem('products')).filter(item => item.isFavorite === true).map(item => item._id)
+                dispatch(updateProducts({favorites: favoritesData, email}))
+            }
             dispatch(userLogin({email, password}))
             dispatch(cleanUp())
         }

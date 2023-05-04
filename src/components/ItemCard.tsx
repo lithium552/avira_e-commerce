@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../features/cart'
-import { updateProducts } from '../features/products/productsSlice'
-import { addToFavorite } from '../features/products/productsSlice'
+import { addToFavorite,updateProducts, selectFavoriteProducts } from '../features/products/productsSlice'
+import { useSelector } from 'react-redux'
+import { currentUser } from '../features/user'
 
 export interface Data {
   _id: string
@@ -18,15 +19,17 @@ interface propsItemCard {
   data: Data[]
 }
 
-// flex justify-between w-full flex-wrap
-
 const ItemCard = ({ data }: propsItemCard) => {
   const dispatch = useDispatch()
-  const isFavoriteHandle = (item: Data) => {
-    if(localStorage.getItem('user')) dispatch(updateProducts(item))
+  const user = useSelector(currentUser)
+  const favoriteProducts = useSelector(selectFavoriteProducts)
+  const favoriteHandle = (item: Data, isFavorite: Boolean) => {
+    if(localStorage.getItem('user')) dispatch(updateProducts({favorites: [item._id], email: user, isFavorite: isFavorite}))
     else dispatch(addToFavorite(item))
-    console.log(item)
+    console.log(isFavorite)
   }
+
+  console.log(user, favoriteProducts, 'USER')
   return (
     <>
       {data.length && data.map(item => (
@@ -38,12 +41,12 @@ const ItemCard = ({ data }: propsItemCard) => {
             </svg>
             <span>{item.rating.toFixed(1)}</span>
           </div>
-          {item.isFavorite ? (
-            <svg onClick={() => isFavoriteHandle(item)} className='absolute top-80 right-4 hover:cursor-pointer' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {user && favoriteProducts.includes(item._id) || item.isFavorite ? (
+            <svg onClick={() => favoriteHandle(item, true)} className='absolute top-80 right-4 hover:cursor-pointer' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 12.27 18.6 15.36 13.45 20.03L12 21.35Z" fill="#DB6B97" />
             </svg>
           ) :
-            (<svg onClick={() => isFavoriteHandle(item)} className='absolute top-[324px] right-4 hover:cursor-pointer' width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            (<svg onClick={() => favoriteHandle(item, false)} className='absolute top-[324px] right-4 hover:cursor-pointer' width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M10.4333 15.55L10.3333 15.65L10.2233 15.55C5.47331 11.24 2.33331 8.39 2.33331 5.5C2.33331 3.5 3.83331 2 5.83331 2C7.37331 2 8.87331 3 9.40331 4.36H11.2633C11.7933 3 13.2933 2 14.8333 2C16.8333 2 18.3333 3.5 18.3333 5.5C18.3333 8.39 15.1933 11.24 10.4333 15.55ZM14.8333 0C13.0933 0 11.4233 0.81 10.3333 2.08C9.24331 0.81 7.57331 0 5.83331 0C2.75331 0 0.333313 2.41 0.333313 5.5C0.333313 9.27 3.73331 12.36 8.88331 17.03L10.3333 18.35L11.7833 17.03C16.9333 12.36 20.3333 9.27 20.3333 5.5C20.3333 2.41 17.9133 0 14.8333 0Z" fill="#DB6B97" />
             </svg>)}
           <div>

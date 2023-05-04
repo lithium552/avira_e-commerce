@@ -2,8 +2,9 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import ItemCard from '../components/ItemCard'
 import Title from '../components/Title'
-import { fetchProducts, selectProducts } from '../features/products/productsSlice'
+import { fetchProducts, selectProducts, fetchFavoriteProducts } from '../features/products/productsSlice'
 import { useLocation } from 'react-router-dom'
+import { currentUser } from '../features/user'
 
 
 
@@ -13,11 +14,14 @@ const Products = () => {
     const status = useSelector(state => state.products.status)
     const state = useSelector(state => state)
     const productType = pathname.split('/').at(-1) 
+    const user = useSelector(currentUser)
     console.log(productType)
     useEffect(() => {
         // if (status === 'idle') {
             console.log('Effect', productType)
             dispatch(fetchProducts(productType))
+            if(user) dispatch(fetchFavoriteProducts(user))
+
         // }
     }, [productType])
     const data = useSelector(selectProducts)

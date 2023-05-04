@@ -1,32 +1,33 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const userRegister = createAsyncThunk('user/userRegister', async ({email, password}) => {
+export const userRegister = createAsyncThunk('user/userRegister', async ({ email, password }) => {
     try {
-    const res = await axios.post('http://localhost:3000/user/register', {email: email, password: password})
-    console.log(res.data)
-    return res.data
-    } catch(error) {
-        console.log(error.response.data.message)
-        throw new Error(error.response.data.message)
-    }
-})
-
-export const userLogin = createAsyncThunk('user/userLogin', async ({email, password}) => {
-    try {
-    const res = await axios.post('http://localhost:3000/user/login', {email: email, password: password}, {withCredentials: true})
-    console.log(res)
-    return res.data
+        const res = await axios.post('http://localhost:3000/user/register', { email: email, password: password })
+        console.log(res.data)
+        return res.data
     } catch (error) {
         console.log(error.response.data.message)
         throw new Error(error.response.data.message)
     }
 })
+
+export const userLogin = createAsyncThunk('user/userLogin', async ({ email, password }) => {
+    try {
+        const res = await axios.post('http://localhost:3000/user/login', { email: email, password: password }, { withCredentials: true })
+        console.log(res)
+        return res.data
+    } catch (error) {
+        console.log(error.response.data.message)
+        throw new Error(error.response.data.message)
+    }
+})
+
 export const userLogout = createAsyncThunk('user/userLogout', async () => {
     try {
-    const res = await axios.post('http://localhost:3000/user/logout', {email: JSON.parse(localStorage.getItem('user'))}, {withCredentials: true})
-    console.log(res)
-    return res.data
+        const res = await axios.post('http://localhost:3000/user/logout', { email: JSON.parse(localStorage.getItem('user')) }, { withCredentials: true })
+        console.log(res)
+        return res.data
     } catch (error) {
         console.log(error.response.data.message)
         throw new Error(error.response.data.message)
@@ -37,7 +38,7 @@ const initialState = {
     status: 'idle',
     errorMessage: '',
     currentUser: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : ''
-  }
+}
 
 const userSlice = createSlice({
     name: 'user',
@@ -68,7 +69,7 @@ const userSlice = createSlice({
                 localStorage.setItem('user', JSON.stringify(action.payload.email))
                 state.currentUser = JSON.parse(localStorage.getItem('user'))
                 state.status = 'succeeded'
-                
+
             })
             .addCase(userLogin.rejected, (state, action) => {
                 state.status = 'error'
@@ -82,7 +83,7 @@ const userSlice = createSlice({
                 localStorage.removeItem('user')
                 state.currentUser = ''
                 // state.status = 'succeeded'
-                
+
             })
             .addCase(userLogout.rejected, (state, action) => {
                 state.status = 'error'

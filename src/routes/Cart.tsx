@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteFromCart } from '../features/cart'
 import ItemsList from '../components/ItemsList'
 import { Data } from '../components/ItemCard'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -12,6 +13,10 @@ const Cart = () => {
     const stateCartData = useSelector(state => state.cart.cart)
     const cartData = stateCartData.length ? stateCartData : JSON.parse(localStorage.getItem('cartItems') || '[]')
     const deleteItemFromCart = (item: Data) => dispatch(deleteFromCart(item))
+    const navigate = useNavigate()
+    const onSubmitHandle = () => {
+        navigate('/payment')
+    }
     return (
         <main className='flex max-w-1440 h-[600px] items-center justify-between mx-auto px-8 mt-8'>
             <section className='flex gap-7 h-full'>
@@ -53,7 +58,7 @@ const Cart = () => {
                     <input className='mt-4 w-full border py-3 px-4 rounded-lg border-neutralsRule focus-visible:outline-textColorAcc' type="text" id='coupon' placeholder='Enter Coupon Code' />
                     <button className='absolute right-3 bottom-3 text-textColorAcc font-semibold '>APPLY</button>
                 </form>
-                <PriceDetails link={'/payment'} disabled={false} buttonText='Place Order' />
+                <PriceDetails onClick={onSubmitHandle} disabled={false} buttonText='Place Order' />
             </section>
         </main>
     )
