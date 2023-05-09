@@ -1,15 +1,16 @@
 import React from 'react'
 import Title from '../components/Title'
 import PriceDetails from '../components/PriceDetails'
-import { nanoid } from '@reduxjs/toolkit'
 import EditFormAddress from '../components/EditFormAddress'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { fetchAddressData, editAddressData, addNewAddressData, deleteAddressData } from '../features/cart'
 import { selectAllAddresses } from '../features/cart'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 type AddressData = {
-    id: string,
+    _id: string,
     name: string,
     surname: string,
     street: string,
@@ -20,8 +21,8 @@ type AddressData = {
     isHome: boolean,
 }
 
-const intialStateForUnputValues = {
-    id: '',
+const intialStateForInputValues = {
+    _id: '',
     name: '',
     surname: '',
     street: '',
@@ -41,42 +42,56 @@ const AddressPage = () => {
     const [radioInputValue, setRadioInputValue] = React.useState()
     const [isOpenEditForm, setIsOpenEditForm] = React.useState(false)
     const [isOpenAddNewForm, setIsOpenAddNewForm] = React.useState(false)
-    const [editInputValues, setEditInputValues] = React.useState(intialStateForUnputValues)
+    const [editInputValues, setEditInputValues] = React.useState(intialStateForInputValues)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    console.log(radioInputValue, addressData)
+    const onSubmitAddress = async () => {
+        const address = addressData.find(item => item._id === radioInputValue)
+        const products = JSON.parse(localStorage.getItem('cartItems') || '[]')
+        const paymentMethod = JSON.parse(localStorage.getItem('paymentMethod') || '[]')
+        localStorage.setItem('address', JSON.stringify(address))
+        try {
+            const fetch = await axios.post('http://localhost:3000/orders',{address: address, items: products, paymentMethod: paymentMethod}, {withCredentials: true})
+        } catch (error) {
+            console.log(error)
+        }
+        // navigate('/order')
+        // console.log(address, 'SELECTED')
+    }
 
     const onSelectHandle = (e) => {
-        if (e.target.value === 'office') setEditInputValues(prev => ({...prev, isOffice: true, isHome: false}))
-        if (e.target.value === 'home') setEditInputValues(prev => ({...prev, isHome: true, isOffice: false}))
-        if (e.target.value === '') setEditInputValues(prev => ({...prev, isHome: false, isOffice: false}))
+        if (e.target.value === 'office') setEditInputValues(prev => ({ ...prev, isOffice: true, isHome: false }))
+        if (e.target.value === 'home') setEditInputValues(prev => ({ ...prev, isHome: true, isOffice: false }))
+        if (e.target.value === '') setEditInputValues(prev => ({ ...prev, isHome: false, isOffice: false }))
     }
 
     const onSubmitEditAddressFormHandle = (e) => {
         e.preventDefault()
-        console.log(editInputValues)
         dispatch(editAddressData(editInputValues))
         setIsOpenEditForm(false)
     }
 
     const onSubmitAddNewAddressFormHandle = (e) => {
         e.preventDefault()
-        console.log(editInputValues)
-        dispatch(addNewAddressData({...editInputValues, id: nanoid()}))
+        dispatch(addNewAddressData({ ...editInputValues }))
         setIsOpenAddNewForm(false)
     }
 
     const onDeleteAddressHandle = (id: string) => {
         dispatch(deleteAddressData(id))
     }
-    
+
     useEffect(() => {
         console.log('useeffect', addressData)
         dispatch(fetchAddressData())
-        if(allAddressData) setAddressData(allAddressData)
-    },[allAddressData])
+        if (allAddressData) setAddressData(allAddressData)
+    }, [allAddressData])
 
     const addNewAddressButtonHandle = () => {
-        setIsOpenAddNewForm(true) 
-        setEditInputValues({...intialStateForUnputValues})
+        setIsOpenAddNewForm(true)
+        setEditInputValues({ ...intialStateForInputValues })
     }
 
     return (
@@ -89,69 +104,69 @@ const AddressPage = () => {
                     <Title length={null} title='SELECT DELIVERY ADDRESS' />
                     <button onClick={addNewAddressButtonHandle} className='px-6 py-3 border border-textColorAcc rounded-lg text-textColorAcc'>ADD NEW ADDRESS</button>
                 </section>
-                {isOpenAddNewForm && <EditFormAddress 
-                                setIsOpenEditForm={setIsOpenAddNewForm}
-                                setEditInputValues={setEditInputValues}
-                                editInputValues={editInputValues}
-                                onSubmitFormHandle={onSubmitAddNewAddressFormHandle}
-                                onSelectHandle={onSelectHandle}
-                            />}
+                {isOpenAddNewForm && <EditFormAddress
+                    setIsOpenEditForm={setIsOpenAddNewForm}
+                    setEditInputValues={setEditInputValues}
+                    editInputValues={editInputValues}
+                    onSubmitFormHandle={onSubmitAddNewAddressFormHandle}
+                    onSelectHandle={onSelectHandle}
+                />}
                 <section className='flex flex-col gap-6 '>
                     {status === 'loading' && <div>Loading...</div>}
                     {status === 'succeeded' && addressData?.length &&
-                    addressData.map((address: AddressData) => (
-                        <div key={address.id} >
-                        <div className='border border-neutralsRule rounded-lg flex py-6 pr-6'>
-                            <input className={'mx-6 ' + radioInputStyles}
-                                onChange={() => setRadioInputValue(address.id)}
-                                value={address.id}
-                                type="radio"
-                                id={address.street}
-                                checked={address.id === radioInputValue} />
-                            <label htmlFor={address.street} className='text-sm'>
-                                <div className='flex gap-4 items-center mb-1'>
-                                    <p className='font-semibold'>{address.name + ' ' + address.surname}</p>
-                                    {address.isHome &&
-                                        <div className='w-11 h-5 rounded border border-[#2DC071] grid place-content-center'>
-                                            <p className='text-xs text-[#2DC071] '>Home</p>
-                                        </div>}
-                                    {address.isOffice &&
-                                        <div className='w-11 h-5 rounded border border-[#EFAF00] grid place-content-center'>
-                                            <p className='text-xs text-[#EFAF00] '>Office</p>
-                                        </div>}
+                        addressData.map((address: AddressData) => (
+                            <div key={address._id} >
+                                <div className='border border-neutralsRule rounded-lg flex py-6 pr-6'>
+                                    <input className={'mx-6 ' + radioInputStyles}
+                                        onChange={() => setRadioInputValue(address._id)}
+                                        value={address._id}
+                                        type="radio"
+                                        id={address.street}
+                                        checked={address._id === radioInputValue} />
+                                    <label htmlFor={address.street} className='text-sm'>
+                                        <div className='flex gap-4 items-center mb-1'>
+                                            <p className='font-semibold'>{address.name + ' ' + address.surname}</p>
+                                            {address.isHome &&
+                                                <div className='w-11 h-5 rounded border border-[#2DC071] grid place-content-center'>
+                                                    <p className='text-xs text-[#2DC071] '>Home</p>
+                                                </div>}
+                                            {address.isOffice &&
+                                                <div className='w-11 h-5 rounded border border-[#EFAF00] grid place-content-center'>
+                                                    <p className='text-xs text-[#EFAF00] '>Office</p>
+                                                </div>}
+                                        </div>
+                                        <p className='mb-1'>{address.street}</p>
+                                        <p className='mb-1'>{address.city}</p>
+                                        <p className='mb-1'>{address.index}</p>
+                                        <p>Mobile: <strong>{address.phone}</strong></p>
+                                    </label>
+
+                                    {address._id === radioInputValue && (<div className='flex gap-4 ml-auto'>
+                                        <svg onClick={() => setIsOpenEditForm(true)} className='hover: cursor-pointer' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3043 2.75 17.863 2.75C18.421 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.571 21.275 6.113C21.2917 6.65433 21.1083 7.11667 20.725 7.5L19.3 8.925ZM17.85 10.4L7.25 21H3V16.75L13.6 6.15L17.85 10.4Z" fill="#737373" />
+                                        </svg>
+                                        <svg onClick={() => onDeleteAddressHandle(address._id)} className='hover: cursor-pointer' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM19 4H15.5L14.5 3H9.5L8.5 4H5V6H19V4Z" fill="#737373" />
+                                        </svg>
+                                    </div>)}
                                 </div>
-                                <p className='mb-1'>{address.street}</p>
-                                <p className='mb-1'>{address.city}</p>
-                                <p className='mb-1'>{address.index}</p>
-                                <p>Mobile: <strong>{address.phone}</strong></p>
-                            </label>
-                            
-                            {address.id === radioInputValue && (<div className='flex gap-4 ml-auto'>
-                                <svg onClick={() => setIsOpenEditForm(true)} className='hover: cursor-pointer' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M19.3 8.925L15.05 4.725L16.45 3.325C16.8333 2.94167 17.3043 2.75 17.863 2.75C18.421 2.75 18.8917 2.94167 19.275 3.325L20.675 4.725C21.0583 5.10833 21.2583 5.571 21.275 6.113C21.2917 6.65433 21.1083 7.11667 20.725 7.5L19.3 8.925ZM17.85 10.4L7.25 21H3V16.75L13.6 6.15L17.85 10.4Z" fill="#737373" />
-                                </svg>
-                                <svg onClick={() => onDeleteAddressHandle(address.id)} className='hover: cursor-pointer' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM19 4H15.5L14.5 3H9.5L8.5 4H5V6H19V4Z" fill="#737373" />
-                                </svg>
-                            </div>)}
-                        </div>
-                            {isOpenEditForm && address.id === radioInputValue && 
-                            (<EditFormAddress 
-                                setIsOpenEditForm={setIsOpenEditForm}
-                                setEditInputValues={setEditInputValues}
-                                editInputValues={editInputValues}
-                                onSubmitFormHandle={onSubmitEditAddressFormHandle}
-                                onSelectHandle={onSelectHandle}
-                                {...address}
-                            />)}
+                                {isOpenEditForm && address._id === radioInputValue &&
+                                    (<EditFormAddress
+                                        setIsOpenEditForm={setIsOpenEditForm}
+                                        setEditInputValues={setEditInputValues}
+                                        editInputValues={editInputValues}
+                                        onSubmitFormHandle={onSubmitEditAddressFormHandle}
+                                        onSelectHandle={onSelectHandle}
+                                        {...address}
+                                    />)}
                             </div>
-                    ))}
+                        ))}
                 </section>
             </section>
             <div className='border-l border-neutralsRule h-[640px] mx-12'>
             </div>
             <div className='w-[33rem]'>
-                <PriceDetails disabled={false} buttonText='Continue' />
+                <PriceDetails disabled={radioInputValue ? false : true} buttonText='Continue' onClick={onSubmitAddress} />
             </div>
         </main>
     )

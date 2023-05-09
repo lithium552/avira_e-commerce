@@ -45,6 +45,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         cleanUp: (state, action) => {
+            localStorage.removeItem('user')
             state = initialState
         }
     },

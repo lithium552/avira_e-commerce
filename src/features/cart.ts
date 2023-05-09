@@ -2,22 +2,26 @@ import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchAddressData = createAsyncThunk('addresses/fetchAddressData', async () => {
-    const res = await axios.get('http://localhost:3000/addresses')
+    const res = await axios.get('http://localhost:3000/address', {withCredentials: true})
     return res.data
 })
 
 export const editAddressData = createAsyncThunk('addresses/editAddressData', async (data) => {
-    const res = await axios.put(`http://localhost:3000/addresses/${data.id}`, {...data})
+    const res = await axios.post(`http://localhost:3000/address/${data._id}`, {...data}, {withCredentials: true})
+    console.log(res.data)
     return res.data
 })
 
 export const addNewAddressData = createAsyncThunk('addresses/addNewAddressData', async (data) => {
-    const res = await axios.post('http://localhost:3000/addresses/', {...data})
+    delete data._id
+    const res = await axios.post('http://localhost:3000/address/', {...data}, {withCredentials: true})
     return res.data
 })
+
 export const deleteAddressData = createAsyncThunk('addresses/deleteAddressData', async (id) => {
-    await axios.delete(`http://localhost:3000/addresses/${id}`)
-    return id
+    const res = await axios.delete(`http://localhost:3000/address/${id}`, {withCredentials: true})
+    console.log(res.data)
+    return res.data
 })
 
 const cartSlice = createSlice({
@@ -60,17 +64,17 @@ const cartSlice = createSlice({
                 state.addresses.status = 'error'
             })
             .addCase(editAddressData.fulfilled, (state, action) => {
-                state.addresses.addresses = action.payload
+                const res = state.addresses.addresses.filter(item => item._id !== action.payload._id)
+                console.log(res, state.addresses.addresses)
+                state.addresses.addresses = res.concat([action.payload])
             })
             .addCase(addNewAddressData.fulfilled, (state, action) => {
                 state.addresses.addresses.push(action.payload)
             })
             .addCase(deleteAddressData.fulfilled, (state, action) => {
                 console.log(action.payload)
-                const res = state.addresses.addresses.filter(item => action.payload !== item.id)
-                console.log(res)
+                const res = state.addresses.addresses.filter(item => action.payload !== item._id)
                 state.addresses.addresses = res
-                console.log(state.addresses.addresses)
             })
     }
 })

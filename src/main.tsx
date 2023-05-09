@@ -19,6 +19,7 @@ import SingInPage from './routes/SingInPage'
 import strore from './app/strore'
 import { Provider } from 'react-redux'
 import FavoriteItems from './routes/FavoriteItems'
+import Order from './routes/Order'
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />
+      },
+      {
+        path: '/orders',
+        element: <Order />
       },
       {
         path: '/categories',

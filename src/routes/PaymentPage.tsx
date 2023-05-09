@@ -62,7 +62,7 @@ const PaymentPage = () => {
     if(/[^0-9]/.test(cardValues.cardNumber)) {
       res.cardNumber = 'Card Number can be only digits'
     }
-    if(/[^A-Za-z]/.test(cardValues.nameOnCard)) {
+    if(/[^A-Za-z ]/.test(cardValues.nameOnCard)) {
       res.nameOnCard = 'Name on card must contain only characters'
     }
     if(cardValues.nameOnCard.length < 3) {

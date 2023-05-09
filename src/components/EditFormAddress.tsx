@@ -1,7 +1,6 @@
 import React from 'react'
 import Button from './Button'
 import { useEffect, useState } from 'react'
-import { nanoid } from '@reduxjs/toolkit'
 
 
 
@@ -9,7 +8,7 @@ const EditFormAddress = ({ ...rest }) => {
 
     useEffect(() => {
         const res = {
-            id: rest.id,
+            _id: rest._id,
             name: rest.name,
             surname: rest.surname,
             street: rest.street,
