@@ -13,37 +13,26 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async (p
     return res.data
 })
 
-export const fetchFavoriteProducts = createAsyncThunk('products/fetchFavoriteProducts', async (user) => {
+export const fetchFavoriteProducts = createAsyncThunk('products/fetchFavoriteProducts', async () => {
     const res = await axios.get('http://localhost:3000/products/getFavorites', {withCredentials: true})
-    console.log(res.data)
     return res.data
 })
 
 export const updateProducts = createAsyncThunk('products/updateProducts', async ({favorites, email, isFavorite}) => {
     const res = await axios.post('http://localhost:3000/products/favorite', { favorites: favorites, email: (email ? email : ''), isFavorite }, { withCredentials: true })
-    console.log(favorites, email, res.data)
     return res.data
+})
+
+export const deleteFromFavorite = createAsyncThunk('allProducts/deleteFromFavorite', async (item) => {
+    const fetch = await axios.post('http://localhost:3000/products/delete-favorite', {id: item._id}, {withCredentials: true})
+    console.log(fetch.data)
+    return fetch.data
 })
 
 const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        addToFavorite: (state, action) => {
-            const res = state.products.find((item: Data) => item._id === action.payload._id)
-            res.isFavorite = !res.isFavorite
-            const prev = JSON.parse(localStorage.getItem('products'))
-            if (prev) {
-                const newItem = prev.find(item => item._id === res._id)
-                if (newItem) {
-                    newItem.isFavorite = res.isFavorite
-                    localStorage.setItem('products', JSON.stringify(prev))
-                } else {
-                    prev.push(res)
-                    localStorage.setItem('products', JSON.stringify(prev))
-                }
-            } else localStorage.setItem('products', JSON.stringify([res]))
-        },
     },
     extraReducers(builer) {
         builer
@@ -51,21 +40,8 @@ const productsSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(fetchProducts.fulfilled, (state, action) => {
-                const prev = JSON.parse(localStorage.getItem('products'))
-                console.log(prev)
-                if (prev) {
-                    const filteredData = action.payload.map(item => {
-                        const prevItem = prev.find(prevItem => prevItem._id === item._id)
-                        if (prevItem) return prevItem
-                        else return item
-                    })
-                    localStorage.setItem('products', JSON.stringify(prev))
-                    state.products = filteredData
-                } else {
                     state.products = action.payload
-                }
                 state.status = 'succeeded'
-                console.log(state.products)
             })
             .addCase(fetchProducts.rejected, (state, action) => {
                 state.status = 'failed'
@@ -77,8 +53,11 @@ const productsSlice = createSlice({
                 localStorage.removeItem('products')
             })
             .addCase(fetchFavoriteProducts.fulfilled, (state, action) => {
-                console.log(action.payload)
                 state.favorites = action.payload
+            })
+            .addCase(deleteFromFavorite.fulfilled, (state, action) => {
+                console.log(action.payload)
+                state.favorites = action.payload.items
             })
     }
 })

@@ -3,7 +3,7 @@ import { Data } from "./ItemCard"
 interface ItemsListProps {
     itemsData: Data[]
     emptyText: string
-    deleteItem: (item: Data) => { payload: any; type: `cart/${string}`; }
+    deleteItem?: (item: Data) => { payload: any; type: `cart/${string}`; } 
 }
 
 const ItemsList: React.FC<ItemsListProps> = ({ ...props}) => {
@@ -11,7 +11,7 @@ const ItemsList: React.FC<ItemsListProps> = ({ ...props}) => {
         <section className='mt-10 max-w-xl max-h-[640px] pr-4 w-[33rem] overflow-auto'>
             {props.itemsData.length !== 0 ?
                 (props.itemsData.map(item => (
-                    <div key={item.id} className='border border-neutralsRule flex p-6 rounded-lg mb-6'>
+                    <div key={item._id} className='border border-neutralsRule flex p-6 rounded-lg mb-6'>
                         <img className='max-h-48' src={item.img} alt="Product image" />
                         <div className='ml-12'>
                             <h2 className='font-semibold'>{item.title}</h2>

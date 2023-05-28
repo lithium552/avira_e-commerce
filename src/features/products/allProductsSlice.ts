@@ -13,13 +13,6 @@ export const fetchAllProducts = createAsyncThunk('allProducts/fetchAllProducts',
     return fetch.data
 })
 
-export const deleteFromFavorite = createAsyncThunk('allProducts/deleteFromFavorite', async (item) => {
-    const newItem = {...item, isFavorite: false}
-    delete newItem.category
-    const fetch = await axios.put(`http://localhost:3000/products/${item.category}/${item.id}`, newItem)
-    return item
-})
-
 
 const allProductsSlice = createSlice({
     name: 'allProducts',
@@ -39,10 +32,6 @@ const allProductsSlice = createSlice({
             .addCase(fetchAllProducts.rejected, (state, action) => {
                 state.status = 'failed'
                 state.error = action.error.message
-            })
-            .addCase(deleteFromFavorite.fulfilled, (state, action) => {
-                const res = state.allProducts.find(item => item.id === action.payload.id)
-                res.isFavorite = false
             })
     }
 })

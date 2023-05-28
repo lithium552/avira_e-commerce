@@ -1,28 +1,32 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectAllFavoriteProducts } from '../features/products/allProductsSlice'
+import { selectFavoriteProducts } from '../features/products/productsSlice'
 import { fetchAllProducts } from '../features/products/allProductsSlice'
 import { Link } from 'react-router-dom'
 import { currentUser } from '../features/user'
 import { userLogout, cleanUp } from '../features/user'
+import Navigation from './Navigation'
+
 
 const Header = () => {
   const cartCounter = useSelector(state => state.cart.cart.length)
   const status = useSelector(state => state.allProducts.status)
   const user = useSelector(currentUser)
+  const favorite = useSelector(selectFavoriteProducts)
   const dispatch = useDispatch()
-  console.log(document.cookie, '--------')
-  console.log(status)
   const logOut = () => {
     dispatch(userLogout())
     dispatch(cleanUp())
     localStorage.removeItem('user')
+    localStorage.removeItem('cartItems')
   }
+
 
   useEffect(() => {
     if (status === 'idle') dispatch(fetchAllProducts())
+    console.log('HEADER NOUNTED')
   }, [])
-  const favoriteCounter = useSelector(selectAllFavoriteProducts)
+
   return (
     <header className='shadow-[0_1px_2px_0_rgba(0,0,0,0.25)]'>
       <section className='flex py-4 px-14 justify-between items-center '>
@@ -76,13 +80,7 @@ const Header = () => {
           </svg>
         </div>
         <nav>
-          <ul className='flex gap-10 '>
-            <li className='text-textColorAcc hover:text-textColorAcc hover:underline underline-offset-8'><Link to="/categories">Home</Link></li>
-            <li className='hover:text-textColorAcc hover:underline underline-offset-8'><a href="#">Shop</a></li>
-            <li className='hover:text-textColorAcc hover:underline underline-offset-8'><Link to="/orders">Orders</Link></li>
-            <li className='hover:text-textColorAcc hover:underline underline-offset-8'><a href="#">About</a></li>
-            <li className='hover:text-textColorAcc hover:underline underline-offset-8'><a href="#">Contact</a></li>
-          </ul>
+          <Navigation />
         </nav>
         <div className='flex gap-8'>
           <div className='flex gap-2 items-center text-textColorAcc'>
@@ -137,7 +135,7 @@ const Header = () => {
                   <path d="M9.99987 3.43506L9.10362 2.51381C6.99987 0.351311 3.14237 1.09756 1.74987 3.81631C1.09612 5.09506 0.948619 6.94131 2.14237 9.29756C3.29237 11.5663 5.68487 14.2838 9.99987 17.2438C14.3149 14.2838 16.7061 11.5663 17.8574 9.29756C19.0511 6.94006 18.9049 5.09506 18.2499 3.81631C16.8574 1.09756 12.9999 0.350061 10.8961 2.51256L9.99987 3.43506ZM9.99987 18.7501C-9.16638 6.08506 4.09862 -3.79994 9.77987 1.42881C9.85487 1.49756 9.92862 1.56881 9.99987 1.64256C10.0704 1.56888 10.1438 1.49799 10.2199 1.43006C15.8999 -3.80244 29.1661 6.08381 9.99987 18.7501Z" fill="#DB6B97" />
                 </svg>
               </Link>
-              <span>{favoriteCounter.length}</span>
+              <span>{favorite?.length}</span>
             </div>
           </div>
         </div>

@@ -15,17 +15,11 @@ const Products = () => {
     const state = useSelector(state => state)
     const productType = pathname.split('/').at(-1) 
     const user = useSelector(currentUser)
-    console.log(productType)
     useEffect(() => {
-        // if (status === 'idle') {
-            console.log('Effect', productType)
             dispatch(fetchProducts(productType))
             if(user) dispatch(fetchFavoriteProducts(user))
-
-        // }
     }, [productType])
     const data = useSelector(selectProducts)
-    console.log(status)
     let content 
     if (status === 'loading') {
         content = <div>Loading...</div>

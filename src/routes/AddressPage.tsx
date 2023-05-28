@@ -8,8 +8,9 @@ import { fetchAddressData, editAddressData, addNewAddressData, deleteAddressData
 import { selectAllAddresses } from '../features/cart'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import AddressInfo from '../components/AddressInfo'
 
-type AddressData = {
+export interface AddressData {
     _id: string,
     name: string,
     surname: string,
@@ -57,8 +58,7 @@ const AddressPage = () => {
         } catch (error) {
             console.log(error)
         }
-        // navigate('/order')
-        // console.log(address, 'SELECTED')
+        navigate('/order')
     }
 
     const onSelectHandle = (e) => {
@@ -124,7 +124,8 @@ const AddressPage = () => {
                                         id={address.street}
                                         checked={address._id === radioInputValue} />
                                     <label htmlFor={address.street} className='text-sm'>
-                                        <div className='flex gap-4 items-center mb-1'>
+                                        <AddressInfo address={address}/>
+                                        {/* <div className='flex gap-4 items-center mb-1'>
                                             <p className='font-semibold'>{address.name + ' ' + address.surname}</p>
                                             {address.isHome &&
                                                 <div className='w-11 h-5 rounded border border-[#2DC071] grid place-content-center'>
@@ -138,7 +139,7 @@ const AddressPage = () => {
                                         <p className='mb-1'>{address.street}</p>
                                         <p className='mb-1'>{address.city}</p>
                                         <p className='mb-1'>{address.index}</p>
-                                        <p>Mobile: <strong>{address.phone}</strong></p>
+                                        <p>Mobile: <strong>{address.phone}</strong></p> */}
                                     </label>
 
                                     {address._id === radioInputValue && (<div className='flex gap-4 ml-auto'>

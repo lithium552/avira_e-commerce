@@ -4,7 +4,6 @@ import Button from './Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { userRegister, userLogin, cleanUp } from '../features/user'
-import { updateProducts } from '../features/products/productsSlice'
 
 interface AuthRegProps {
     heading: string
@@ -20,13 +19,14 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
     const [password, setPassword] = useState('')
     const dispatch = useDispatch()
 
-    const status = useSelector(state => state.user.status)
+    const loginStatus = useSelector(state => state.user.loginStatus)
+    const registerStatus = useSelector(state => state.user.registerStatus)
     const errorMessage = useSelector(state => state.user.errorMessage)
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (status === 'succeeded' && !isReg) navigate('/categories')
-    }, [status])
+        if (loginStatus === 'succeeded' && !isReg) navigate('/categories')
+    }, [loginStatus])
 
 
     const sumbmitFormHandle = (e) => {
@@ -36,22 +36,17 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
             dispatch(cleanUp())
         }
         else {        
-            if(JSON.parse(localStorage.getItem('products'))) {
-                const favoritesData = JSON.parse(localStorage.getItem('products')).filter(item => item.isFavorite === true).map(item => item._id)
-                dispatch(updateProducts({favorites: favoritesData, email}))
-            }
             dispatch(userLogin({email, password}))
             dispatch(cleanUp())
         }
-        console.log('submit', isReg)
     }
 
 
     let content
 
-    if (status === 'succeeded' && isReg) content = <span>Now you can <Link to='/sing-in' className='text-textColorAcc font-semibold'>login</Link></span>
-    else if (status === 'error' && isReg) content = <span className='text-textColorAcc'>{errorMessage}</span>
-    else if (status === 'error' && !isReg) content = <span className='text-textColorAcc'>{errorMessage}</span>
+    if (registerStatus === 'succeeded' && isReg) content = <span>Now you can <Link to='/sing-in' className='text-textColorAcc font-semibold'>login</Link></span>
+    else if (registerStatus === 'error' && isReg) content = <span className='text-textColorAcc'>{errorMessage}</span>
+    else if (loginStatus === 'error' && !isReg) content = <span className='text-textColorAcc'>{errorMessage}</span>
 
     return (
         <main className='flex'>
