@@ -16,7 +16,7 @@ import OrderPlaced from './routes/OrderPlaced'
 import Products from './routes/Products'
 import SingUpPage from './routes/SingUpPage'
 import SingInPage from './routes/SingInPage'
-import strore from './app/strore'
+import { store } from './app/store'
 import { Provider } from 'react-redux'
 import FavoriteItems from './routes/FavoriteItems'
 import Order from './routes/Order'
@@ -106,7 +106,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Provider store={strore}>
+    <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>,

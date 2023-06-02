@@ -6,17 +6,18 @@ import { Link } from 'react-router-dom'
 import { currentUser } from '../features/user'
 import { userLogout, cleanUp } from '../features/user'
 import Navigation from './Navigation'
+import { AppDispatch, RootState } from '../app/store'
 
 
 const Header = () => {
-  const cartCounter = useSelector(state => state.cart.cart.length)
-  const status = useSelector(state => state.allProducts.status)
+  const cartCounter = useSelector((state: RootState) => state.cart.cart.length)
+  const status = useSelector((state: RootState) => state.allProducts.status)
   const user = useSelector(currentUser)
   const favorite = useSelector(selectFavoriteProducts)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const logOut = () => {
     dispatch(userLogout())
-    dispatch(cleanUp())
+    dispatch(cleanUp(null))
     localStorage.removeItem('user')
     localStorage.removeItem('cartItems')
   }

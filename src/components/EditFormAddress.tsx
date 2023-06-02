@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from './Button'
 import { useEffect, useState } from 'react'
+import { AddressData } from '../routes/AddressPage'
 
 
 
@@ -25,7 +26,7 @@ const EditFormAddress = ({ ...rest }) => {
         })) {
             rest.setEditInputValues({...res})
         }
-        else rest.setEditInputValues(prev => prev)
+        else rest.setEditInputValues((prev: AddressData) => prev)
     },[])
     
     const selectValue = (rest.isHome && 'home') || (rest.isOffice && 'office') || !(!rest.isOffice && !rest.isHome) || '' 
@@ -52,7 +53,7 @@ const EditFormAddress = ({ ...rest }) => {
                         className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3 w-full'
                         type="text"
                         value={rest.editInputValues.name}
-                        onChange={(e) => rest.setEditInputValues(prev => ({ ...prev, name: e.target.value }))}
+                        onChange={(e) => rest.setEditInputValues((prev: AddressData) => ({ ...prev, name: e.target.value }))}
                         placeholder='your name'
                         id='name'
                         required
@@ -64,7 +65,7 @@ const EditFormAddress = ({ ...rest }) => {
                         className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3 w-full'
                         type="text"
                         value={rest.editInputValues.surname}
-                        onChange={(e) => rest.setEditInputValues(prev => ({ ...prev, surname: e.target.value }))}
+                        onChange={(e) => rest.setEditInputValues((prev: AddressData) => ({ ...prev, surname: e.target.value }))}
                         placeholder='your surname'
                         id='surname'
                         required
@@ -77,7 +78,7 @@ const EditFormAddress = ({ ...rest }) => {
                     className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3 w-full'
                     type="text"
                     value={rest.editInputValues.street}
-                    onChange={(e) => rest.setEditInputValues(prev => ({ ...prev, street: e.target.value }))}
+                    onChange={(e) => rest.setEditInputValues((prev: AddressData) => ({ ...prev, street: e.target.value }))}
                     placeholder='your street'
                     id='street'
                     required
@@ -89,7 +90,7 @@ const EditFormAddress = ({ ...rest }) => {
                     className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3 w-full'
                     type="text"
                     value={rest.editInputValues.city}
-                    onChange={(e) => rest.setEditInputValues(prev => ({ ...prev, city: e.target.value }))}
+                    onChange={(e) => rest.setEditInputValues((prev: AddressData) => ({ ...prev, city: e.target.value }))}
                     placeholder='your city'
                     id='city'
                     required
@@ -102,7 +103,7 @@ const EditFormAddress = ({ ...rest }) => {
                         className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3 w-full'
                         type="text"
                         value={rest.editInputValues.index}
-                        onChange={(e) => rest.setEditInputValues(prev => ({ ...prev, index: e.target.value }))}
+                        onChange={(e) => rest.setEditInputValues((prev: AddressData) => ({ ...prev, index: e.target.value }))}
                         placeholder='your index'
                         id='index'
                         required
@@ -114,7 +115,7 @@ const EditFormAddress = ({ ...rest }) => {
                         className='border rounded-lg focus-visible:outline-textColorAcc px-4 py-3 w-full'
                         type="text"
                         value={rest.editInputValues.phone}
-                        onChange={(e) => rest.setEditInputValues(prev => ({ ...prev, phone: e.target.value }))}
+                        onChange={(e) => rest.setEditInputValues((prev: AddressData) => ({ ...prev, phone: e.target.value }))}
                         placeholder='your phone'
                         id='phone'
                         required

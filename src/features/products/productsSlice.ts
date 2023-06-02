@@ -1,31 +1,45 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { Data } from '../../components/ItemCard'
+import { RootState } from '../../app/store'
 
-const initialState = {
+interface ProductState {
+    products: Data[],
+    favorites: string[],
+    status: string,
+    error: string 
+}
+
+const initialState: ProductState = {
     products: [],
     favorites: [],
     status: 'idle',
-    error: null
+    error: ''
 }
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async (products: string) => {
-    const res = await axios.get(`http://localhost:3000/products/${products}`)
+    const res = await axios.get(`https://avira-api-388212.lm.r.appspot.com//products/${products}`)
     return res.data
 })
 
 export const fetchFavoriteProducts = createAsyncThunk('products/fetchFavoriteProducts', async () => {
-    const res = await axios.get('http://localhost:3000/products/getFavorites', {withCredentials: true})
+    const res = await axios.get('https://avira-api-388212.lm.r.appspot.com/products/getFavorites', {withCredentials: true})
     return res.data
 })
 
-export const updateProducts = createAsyncThunk('products/updateProducts', async ({favorites, email, isFavorite}) => {
-    const res = await axios.post('http://localhost:3000/products/favorite', { favorites: favorites, email: (email ? email : ''), isFavorite }, { withCredentials: true })
+interface UpdateProducts  {
+    favorites: string[]
+    email: string
+    isFavorite: boolean
+}
+
+export const updateProducts = createAsyncThunk('products/updateProducts', async ({favorites, email, isFavorite}: UpdateProducts) => {
+    const res = await axios.post('https://avira-api-388212.lm.r.appspot.com/products/favorite', { favorites: favorites, email: (email ? email : ''), isFavorite }, { withCredentials: true })
     return res.data
 })
 
-export const deleteFromFavorite = createAsyncThunk('allProducts/deleteFromFavorite', async (item) => {
-    const fetch = await axios.post('http://localhost:3000/products/delete-favorite', {id: item._id}, {withCredentials: true})
-    console.log(fetch.data)
+export const deleteFromFavorite = createAsyncThunk('allProducts/deleteFromFavorite', async (item: Data) => {
+    const fetch = await axios.post('https://avira-api-388212.lm.r.appspot.com/products/delete-favorite', {id: item._id}, {withCredentials: true})
     return fetch.data
 })
 
@@ -45,7 +59,7 @@ const productsSlice = createSlice({
             })
             .addCase(fetchProducts.rejected, (state, action) => {
                 state.status = 'failed'
-                state.error = action.error.message
+                state.error = action.error.message || ''
             })
             .addCase(updateProducts.fulfilled, (state, action) => {
                 console.log(action.payload)
@@ -63,6 +77,5 @@ const productsSlice = createSlice({
 })
 
 export default productsSlice.reducer
-export const { addToFavorite } = productsSlice.actions
-export const selectProducts = state => state.products.products
-export const selectFavoriteProducts = state => state.products.favorites
+export const selectProducts = (state: RootState) => state.products.products
+export const selectFavoriteProducts = (state: RootState) => state.products.favorites

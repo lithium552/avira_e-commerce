@@ -1,6 +1,7 @@
 import { Data } from './ItemCard'
 import Button from './Button'
 import { useSelector } from 'react-redux'
+import { RootState } from '../app/store'
 
 export interface PriceDetailsProps {
     buttonText: string
@@ -9,7 +10,7 @@ export interface PriceDetailsProps {
 }
 
 const PriceDetails = ({buttonText, disabled, onClick}: PriceDetailsProps) => {
-    const cartData = useSelector(state => state.cart.cart) 
+    const cartData = useSelector((state: RootState) => state.cart.cart) 
 
     const calculateOrder = (data: Data[]) => {
         const res = {

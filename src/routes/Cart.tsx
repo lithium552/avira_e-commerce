@@ -6,12 +6,14 @@ import ItemsList from '../components/ItemsList'
 import { Data } from '../components/ItemCard'
 import { useNavigate } from 'react-router-dom'
 import { currentUser } from '../features/user'
+import { AppDispatch } from '../app/store'
+import { selectCartItems } from '../features/cart'
 
 
 
 const Cart = () => {
-    const dispatch = useDispatch()
-    const stateCartData = useSelector(state => state.cart.cart)
+    const dispatch = useDispatch<AppDispatch>()
+    const stateCartData = useSelector(selectCartItems)
     const cartData = stateCartData.length ? stateCartData : JSON.parse(localStorage.getItem('cartItems') || '[]')
     const deleteItemFromCart = (item: Data) => dispatch(deleteFromCart(item))
     const navigate = useNavigate()
@@ -19,7 +21,7 @@ const Cart = () => {
         navigate('/payment')
     }
     const user = useSelector(currentUser)
-    console.log('hello', user, Boolean(user))
+    console.log('hello', user, Boolean(user),stateCartData)
     return (
         <main className='flex max-w-1440 h-[600px] items-center justify-between mx-auto px-8 mt-8'>
             {!user ?

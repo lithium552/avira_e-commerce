@@ -3,6 +3,7 @@ import { addToCart } from '../features/cart'
 import { updateProducts, selectFavoriteProducts } from '../features/products/productsSlice'
 import { useSelector } from 'react-redux'
 import { currentUser } from '../features/user'
+import { AppDispatch } from '../app/store'
 
 export interface Data {
   _id: string
@@ -20,11 +21,11 @@ interface propsItemCard {
 }
 
 const ItemCard = ({ data }: propsItemCard) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const user = useSelector(currentUser)
   const favoriteProducts = useSelector(selectFavoriteProducts)
 
-  const favoriteHandle = (item: Data, isFavorite: Boolean) => {
+  const favoriteHandle = (item: Data, isFavorite: boolean) => {
     dispatch(updateProducts({favorites: [item._id], email: user, isFavorite: isFavorite}))
   }
 

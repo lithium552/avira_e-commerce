@@ -2,6 +2,7 @@ import React from 'react'
 import Title from '../components/Title'
 import PriceDetails from '../components/PriceDetails'
 import EditFormAddress from '../components/EditFormAddress'
+import { clearCart } from '../features/cart'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { fetchAddressData, editAddressData, addNewAddressData, deleteAddressData } from '../features/cart'
@@ -9,6 +10,7 @@ import { selectAllAddresses } from '../features/cart'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import AddressInfo from '../components/AddressInfo'
+import { AppDispatch, RootState } from '../app/store'
 
 export interface AddressData {
     _id: string,
@@ -37,43 +39,44 @@ const intialStateForInputValues = {
 export const radioInputStyles = 'appearance-none bg-white w-4 h-4 rounded-full border border-neutralsRule checked:border-textColorAcc checked:border-4'
 
 const AddressPage = () => {
-    const status = useSelector(state => state.cart.addresses.status)
+    const status = useSelector((state: RootState) => state.cart.addresses.status)
     const allAddressData = useSelector(selectAllAddresses)
     const [addressData, setAddressData] = React.useState<AddressData[]>([])
-    const [radioInputValue, setRadioInputValue] = React.useState()
+    const [radioInputValue, setRadioInputValue] = React.useState<string>('')
     const [isOpenEditForm, setIsOpenEditForm] = React.useState(false)
     const [isOpenAddNewForm, setIsOpenAddNewForm] = React.useState(false)
     const [editInputValues, setEditInputValues] = React.useState(intialStateForInputValues)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
 
-    console.log(radioInputValue, addressData)
     const onSubmitAddress = async () => {
         const address = addressData.find(item => item._id === radioInputValue)
         const products = JSON.parse(localStorage.getItem('cartItems') || '[]')
         const paymentMethod = JSON.parse(localStorage.getItem('paymentMethod') || '[]')
         localStorage.setItem('address', JSON.stringify(address))
         try {
-            const fetch = await axios.post('http://localhost:3000/orders',{address: address, items: products, paymentMethod: paymentMethod}, {withCredentials: true})
+            const fetch = await axios.post('https://avira-api-388212.lm.r.appspot.com/orders',{address: address, items: products, paymentMethod: paymentMethod}, {withCredentials: true})
         } catch (error) {
             console.log(error)
         }
+        localStorage.removeItem('cartItems')
+        dispatch(clearCart(null))
         navigate('/order')
     }
 
-    const onSelectHandle = (e) => {
+    const onSelectHandle = (e: { target: { value: string } }) => {
         if (e.target.value === 'office') setEditInputValues(prev => ({ ...prev, isOffice: true, isHome: false }))
         if (e.target.value === 'home') setEditInputValues(prev => ({ ...prev, isHome: true, isOffice: false }))
         if (e.target.value === '') setEditInputValues(prev => ({ ...prev, isHome: false, isOffice: false }))
     }
 
-    const onSubmitEditAddressFormHandle = (e) => {
+    const onSubmitEditAddressFormHandle = (e: { preventDefault: () => void }) => {
         e.preventDefault()
         dispatch(editAddressData(editInputValues))
         setIsOpenEditForm(false)
     }
 
-    const onSubmitAddNewAddressFormHandle = (e) => {
+    const onSubmitAddNewAddressFormHandle = (e: { preventDefault: () => void }) => {
         e.preventDefault()
         dispatch(addNewAddressData({ ...editInputValues }))
         setIsOpenAddNewForm(false)
@@ -125,21 +128,6 @@ const AddressPage = () => {
                                         checked={address._id === radioInputValue} />
                                     <label htmlFor={address.street} className='text-sm'>
                                         <AddressInfo address={address}/>
-                                        {/* <div className='flex gap-4 items-center mb-1'>
-                                            <p className='font-semibold'>{address.name + ' ' + address.surname}</p>
-                                            {address.isHome &&
-                                                <div className='w-11 h-5 rounded border border-[#2DC071] grid place-content-center'>
-                                                    <p className='text-xs text-[#2DC071] '>Home</p>
-                                                </div>}
-                                            {address.isOffice &&
-                                                <div className='w-11 h-5 rounded border border-[#EFAF00] grid place-content-center'>
-                                                    <p className='text-xs text-[#EFAF00] '>Office</p>
-                                                </div>}
-                                        </div>
-                                        <p className='mb-1'>{address.street}</p>
-                                        <p className='mb-1'>{address.city}</p>
-                                        <p className='mb-1'>{address.index}</p>
-                                        <p>Mobile: <strong>{address.phone}</strong></p> */}
                                     </label>
 
                                     {address._id === radioInputValue && (<div className='flex gap-4 ml-auto'>

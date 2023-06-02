@@ -3,7 +3,8 @@ import { Data } from "./ItemCard"
 interface ItemsListProps {
     itemsData: Data[]
     emptyText: string
-    deleteItem?: (item: Data) => { payload: any; type: `cart/${string}`; } 
+    deleteItem?: (item: Data) => void
+    // (item: Data) => { payload: any; type: `cart/${string}`; } 
 }
 
 const ItemsList: React.FC<ItemsListProps> = ({ ...props}) => {
@@ -48,7 +49,7 @@ const ItemsList: React.FC<ItemsListProps> = ({ ...props}) => {
                                 <p className='text-textColorTertiary'>Delivery by <span className='text-textColorPrimary'>9th Jan, 2023</span></p>
                             </div>
                         </div>
-                        <svg className='ml-auto hover:cursor-pointer' onClick={() => props.itemsData.length ? props.deleteItem(item) : null} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg className='ml-auto hover:cursor-pointer' onClick={() => props.itemsData.length && props.deleteItem ? props.deleteItem(item) : null} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clipPath="url(#clip0_293_113)">
                                 <path d="M11.5993 11.6002L0.399292 0.400177M0.399292 11.6002L11.5993 0.400177L0.399292 11.6002Z" stroke="#737373" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </g>

@@ -8,10 +8,11 @@ import { fetchAllProducts } from "../features/products/allProductsSlice"
 import { Data } from "../components/ItemCard"
 import { useEffect, useState } from "react"
 import { currentUser } from "../features/user"
+import { AppDispatch } from "../app/store"
 
 const FavoriteItems = () => {
     const [filteredData, setFilteredData] = useState([])
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
     const data = useSelector(selectAllProducts)
     const favorite = useSelector(selectFavoriteProducts)
     const user = useSelector(currentUser)
@@ -19,12 +20,10 @@ const FavoriteItems = () => {
     useEffect(() => {
         dispatch(fetchAllProducts())
         dispatch(fetchFavoriteProducts())
-        console.log('UseEffect', Array.isArray(favorite), data, favorite)
-        setFilteredData(Array.isArray(favorite) ? data.filter(item => favorite.includes(item._id)) : [])
+        setFilteredData(Array.isArray(favorite) ? data.filter((item: Data) => favorite.includes(item._id)) : [])
     },[favorite.length])
     
     
-    // console.log(filteredData, 'filteredData', data, Array.isArray(favorite), favorite, 'favorite')
     const deleteFromFavoriteHandle = (item: Data) => dispatch(deleteFromFavorite(item))
     return (
         <div className="grid place-content-center my-12">

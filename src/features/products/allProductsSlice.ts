@@ -9,7 +9,7 @@ const initialState = {
 }
 
 export const fetchAllProducts = createAsyncThunk('allProducts/fetchAllProducts', async () => {
-    const fetch = await axios.get('http://localhost:3000/products/all')
+    const fetch = await axios.get('https://avira-api-388212.lm.r.appspot.com/products/all')
     return fetch.data
 })
 

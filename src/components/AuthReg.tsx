@@ -4,6 +4,8 @@ import Button from './Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { userRegister, userLogin, cleanUp } from '../features/user'
+import { AppDispatch } from '../app/store'
+import { RootState } from '../app/store'
 
 interface AuthRegProps {
     heading: string
@@ -17,11 +19,11 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
 
-    const loginStatus = useSelector(state => state.user.loginStatus)
-    const registerStatus = useSelector(state => state.user.registerStatus)
-    const errorMessage = useSelector(state => state.user.errorMessage)
+    const loginStatus = useSelector((state: RootState) => state.user.loginStatus)
+    const registerStatus = useSelector((state: RootState) => state.user.registerStatus)
+    const errorMessage = useSelector((state: RootState) => state.user.errorMessage)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -29,15 +31,15 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
     }, [loginStatus])
 
 
-    const sumbmitFormHandle = (e) => {
+    const sumbmitFormHandle = (e: { preventDefault: () => void }) => {
         e.preventDefault()
         if (isReg) {
             dispatch(userRegister({email, password}))
-            dispatch(cleanUp())
+            dispatch(cleanUp(null))
         }
         else {        
             dispatch(userLogin({email, password}))
-            dispatch(cleanUp())
+            dispatch(cleanUp(null))
         }
     }
 

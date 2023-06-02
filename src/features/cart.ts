@@ -1,54 +1,63 @@
-import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, nanoid, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { AddressData } from "../routes/AddressPage";
+import { Data } from "../components/ItemCard";
+import { RootState } from "../app/store";
 
 export const fetchAddressData = createAsyncThunk('addresses/fetchAddressData', async () => {
-    const res = await axios.get('http://localhost:3000/address', {withCredentials: true})
+    const res = await axios.get('https://avira-api-388212.lm.r.appspot.com/address', {withCredentials: true})
     return res.data
 })
 
-export const editAddressData = createAsyncThunk('addresses/editAddressData', async (data) => {
-    const res = await axios.post(`http://localhost:3000/address/${data._id}`, {...data}, {withCredentials: true})
-    console.log(res.data)
+export const editAddressData = createAsyncThunk('addresses/editAddressData', async (data: AddressData) => {
+    const res = await axios.post(`https://avira-api-388212.lm.r.appspot.com/address/${data._id}`, {...data}, {withCredentials: true})
     return res.data
 })
 
-export const addNewAddressData = createAsyncThunk('addresses/addNewAddressData', async (data) => {
+export const addNewAddressData = createAsyncThunk('addresses/addNewAddressData', async (data: Partial<AddressData>) => {
     delete data._id
-    const res = await axios.post('http://localhost:3000/address/', {...data}, {withCredentials: true})
+    const res = await axios.post('https://avira-api-388212.lm.r.appspot.com/address/', {...data}, {withCredentials: true})
     return res.data
 })
 
-export const deleteAddressData = createAsyncThunk('addresses/deleteAddressData', async (id) => {
-    const res = await axios.delete(`http://localhost:3000/address/${id}`, {withCredentials: true})
-    console.log(res.data)
+export const deleteAddressData = createAsyncThunk('addresses/deleteAddressData', async (id: string) => {
+    const res = await axios.delete(`https://avira-api-388212.lm.r.appspot.com/address/${id}`, {withCredentials: true})
     return res.data
 })
+
+interface CartState {
+    cart: Data[] ,
+    addresses: {
+        status: string,
+        addresses: AddressData[] 
+        error: Object | null
+    }
+}
+
+const initialState: CartState = {
+    cart: JSON.parse(localStorage.getItem('cartItems') || '[]'),
+    addresses: {
+        status: 'idle',
+        addresses: [],
+        error: null
+    }
+}
 
 const cartSlice = createSlice({
     name: 'cart',
-    initialState: {
-        cart: JSON.parse(localStorage.getItem('cartItems') || '[]'),
-        addresses: {
-            status: 'idle',
-            addresses: [],
-            error: null
-        }
-    },
+    initialState,
     reducers: {
-        addToCart: {
-            reducer: (state, action) => {
+        addToCart: (state, action: PayloadAction<Data>) => {
                 state.cart.push(action.payload)
                 localStorage.setItem('cartItems', JSON.stringify([...state.cart]))
             },
-            prepare: (item) => {
-                const id = nanoid()
-                return { payload: { ...item, id } }
-            }
-        },
         deleteFromCart: (state, action) => {
-            const fiteredItems = state.cart.filter(item => item.id !== action.payload.id)
+            const fiteredItems = state.cart.filter((item: Data) => item._id !== action.payload._id)
             localStorage.setItem('cartItems', JSON.stringify([...fiteredItems]))
             state.cart = [...fiteredItems]
+        },
+        clearCart: (state, action) => {
+            state.cart = []
         }
     },
     extraReducers(builer) {
@@ -81,5 +90,6 @@ const cartSlice = createSlice({
 
 export default cartSlice.reducer
 
-export const { addToCart, deleteFromCart } = cartSlice.actions
-export const selectAllAddresses = state => state.cart.addresses.addresses
+export const { addToCart, deleteFromCart, clearCart } = cartSlice.actions
+export const selectAllAddresses = (state: RootState) => state.cart.addresses.addresses
+export const selectCartItems = (state: RootState) =>  state.cart.cart
