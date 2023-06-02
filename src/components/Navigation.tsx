@@ -3,19 +3,19 @@ import { useLocation } from 'react-router-dom'
 
 const navData = [
     {
-        address: '/categories',
+        address: '/avira_e-commerce/categories',
         text: 'Home'
     },
     {
-        address: '/orders',
+        address: '/avira_e-commerce/orders',
         text: 'Orders'
     },
     {
-        address: '/about-us',
+        address: '/avira_e-commerce/about-us',
         text: 'About'
     },
     {
-        address: '/contact',
+        address: '/avira_e-commerce/contact',
         text: 'Contact'
     },
 ]

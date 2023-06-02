@@ -32,7 +32,7 @@ const OrderPlaced = () => {
             </svg>
             <p className='mt-16'>Estimated Delivery </p>
             <p>Monday, 09th January, 2023 </p>
-            <Button buttonText='Continue Shopping' onClick={() => navigate('/categories')} isArrow={true} />
+            <Button buttonText='Continue Shopping' onClick={() => navigate('/avira_e-commerce/categories')} isArrow={true} />
         </main>
     )
 }

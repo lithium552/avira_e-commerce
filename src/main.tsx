@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import Root from './routes/Root'
 import {
   createBrowserRouter,
+  redirect,
   RouterProvider,
 } from "react-router-dom"
 import HomePage from './routes/HomePage'
@@ -24,71 +25,72 @@ import Order from './routes/Order'
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root/>,
+    element: <Root />,
     errorElement: <div>Error</div>,
     children: [
       {
-        path: '/',
-        element: <HomePage />
+        path: '/avira_e-commerce',
+        element: <HomePage />,
+        loader: () => redirect('/avira_e-commerce/categories')
       },
       {
-        path: '/orders',
+        path: '/avira_e-commerce/orders',
         element: <Order />
       },
       {
-        path: '/categories',
+        path: '/avira_e-commerce/categories',
         element: <Categories />,
       },
       {
-        path: '/categories/men',
+        path: '/avira_e-commerce/categories/men',
         element: <Products />,
       },
       {
-        path: '/categories/women',
+        path: '/avira_e-commerce/categories/women',
         element: <Products />,
       },
       {
-        path: '/categories/sneakers',
+        path: '/avira_e-commerce/categories/sneakers',
         element: <Products />,
       },
       {
-        path: '/categories/accessories',
+        path: '/avira_e-commerce/categories/accessories',
         element: <Products />,
       },
       {
-        path: '/categories/children',
+        path: '/avira_e-commerce/categories/children',
         element: <Products />,
       },
       {
-        path: '/categories/beauty',
+        path: '/avira_e-commerce/categories/beauty',
         element: <Products />,
       },
       {
-        path: '/about-us',
+        path: '/avira_e-commerce/about-us',
         element: <AboutUs />
       },
       {
-        path: '/contact',
+        path: '/avira_e-commerce/contact',
         element: <ContactPage />
       },
       {
-        path: '/cart',
+        path: '/avira_e-commerce/cart',
         element: <Cart />
       },
       {
-        path: '/address',
+        path: '/avira_e-commerce/address',
         element: <AddressPage />
       },
       {
-        path: '/payment',
+        path: '/avira_e-commerce/payment',
         element: <PaymentPage />
       },
       {
-        path: '/order',
+        path: '/avira_e-commerce/order',
         element: <OrderPlaced />
       },
       {
-        path: '/favorite',
+        path: '/avira_e-commerce/favorite',
         element: <FavoriteItems />
       },
     ]
