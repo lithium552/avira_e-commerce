@@ -14,6 +14,7 @@ interface OrderData {
   items: Data[]
   paymentMethod: string
   userId: string
+  _id: string
 }
 
 const Order = () => {
@@ -26,7 +27,6 @@ const Order = () => {
     fetchData()
   }, [])
   const user = useSelector(currentUser)
-  console.log(orderData)
   return (
     <div className='m-12 w-fit flex items-start gap-8'>
       {!user ? (<div>You must login in first...</div>) :
@@ -34,7 +34,7 @@ const Order = () => {
       <Title length={null} title='Orders:' />
       <ul>
       {orderData.length ? orderData.map(order => (
-        <li className='flex border rounded-lg gap-12 p-8 mb-4'>
+        <li key={order._id} className='flex border rounded-lg gap-12 p-8 mb-4'>
           <div className='flex gap-12 flex-col'>
           <div>
           <h2 className='mb-4 font-semibold text-xl text'>Address:</h2>

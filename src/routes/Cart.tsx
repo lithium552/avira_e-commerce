@@ -21,7 +21,6 @@ const Cart = () => {
         navigate('/payment')
     }
     const user = useSelector(currentUser)
-    console.log('hello', user, Boolean(user),stateCartData)
     return (
         <main className='flex max-w-1440 h-[600px] items-center justify-between mx-auto px-8 mt-8'>
             {!user ?

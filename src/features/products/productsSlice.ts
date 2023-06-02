@@ -7,7 +7,7 @@ interface ProductState {
     products: Data[],
     favorites: string[],
     status: string,
-    error: string 
+    error: string
 }
 
 const initialState: ProductState = {
@@ -23,23 +23,23 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async (p
 })
 
 export const fetchFavoriteProducts = createAsyncThunk('products/fetchFavoriteProducts', async () => {
-    const res = await axios.get('https://avira-api-388212.lm.r.appspot.com/products/getFavorites', {withCredentials: true})
+    const res = await axios.get('https://avira-api-388212.lm.r.appspot.com/products/getFavorites', { withCredentials: true })
     return res.data
 })
 
-interface UpdateProducts  {
+interface UpdateProducts {
     favorites: string[]
     email: string
     isFavorite: boolean
 }
 
-export const updateProducts = createAsyncThunk('products/updateProducts', async ({favorites, email, isFavorite}: UpdateProducts) => {
+export const updateProducts = createAsyncThunk('products/updateProducts', async ({ favorites, email, isFavorite }: UpdateProducts) => {
     const res = await axios.post('https://avira-api-388212.lm.r.appspot.com/products/favorite', { favorites: favorites, email: (email ? email : ''), isFavorite }, { withCredentials: true })
     return res.data
 })
 
 export const deleteFromFavorite = createAsyncThunk('allProducts/deleteFromFavorite', async (item: Data) => {
-    const fetch = await axios.post('https://avira-api-388212.lm.r.appspot.com/products/delete-favorite', {id: item._id}, {withCredentials: true})
+    const fetch = await axios.post('https://avira-api-388212.lm.r.appspot.com/products/delete-favorite', { id: item._id }, { withCredentials: true })
     return fetch.data
 })
 
@@ -54,7 +54,7 @@ const productsSlice = createSlice({
                 state.status = 'loading'
             })
             .addCase(fetchProducts.fulfilled, (state, action) => {
-                    state.products = action.payload
+                state.products = action.payload
                 state.status = 'succeeded'
             })
             .addCase(fetchProducts.rejected, (state, action) => {
@@ -62,7 +62,6 @@ const productsSlice = createSlice({
                 state.error = action.error.message || ''
             })
             .addCase(updateProducts.fulfilled, (state, action) => {
-                console.log(action.payload)
                 state.favorites = action.payload.items
                 localStorage.removeItem('products')
             })
@@ -70,7 +69,6 @@ const productsSlice = createSlice({
                 state.favorites = action.payload
             })
             .addCase(deleteFromFavorite.fulfilled, (state, action) => {
-                console.log(action.payload)
                 state.favorites = action.payload.items
             })
     }

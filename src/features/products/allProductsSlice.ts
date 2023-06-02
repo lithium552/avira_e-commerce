@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { RootState } from '../../app/store'
 import { Data } from '../../components/ItemCard'
 
 const initialState = {
     allProducts: [],
     status: 'idle',
-    error: null
+    error: ''
 }
 
 export const fetchAllProducts = createAsyncThunk('allProducts/fetchAllProducts', async () => {
@@ -31,13 +32,12 @@ const allProductsSlice = createSlice({
             })
             .addCase(fetchAllProducts.rejected, (state, action) => {
                 state.status = 'failed'
-                state.error = action.error.message
+                state.error = action.error.message || ''
             })
     }
 })
 
 export default allProductsSlice.reducer
 
-export const selectAllFavoriteProducts = state => state.allProducts.allProducts.filter(item => item.isFavorite === true)
-export const selectAllProducts = state => state.allProducts.allProducts
-export const selectAllSlashedProducts = state => state.allProducts.allProducts.filter(prod => prod.oldPrice !== null)
+export const selectAllProducts = (state: RootState) => state.allProducts.allProducts
+export const selectAllSlashedProducts = (state: RootState) => state.allProducts.allProducts.filter((prod: Data) => prod.oldPrice !== null)
