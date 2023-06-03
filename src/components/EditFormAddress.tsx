@@ -19,7 +19,6 @@ const EditFormAddress = ({ ...rest }) => {
             isOffice: rest.isOffice,
             isHome: rest.isHome,
         }
-        console.log(Object.values(res))
         if (Object.values(res).every(val => {
             if(typeof val === 'boolean') return true
             return val
@@ -31,7 +30,6 @@ const EditFormAddress = ({ ...rest }) => {
     
     const selectValue = (rest.isHome && 'home') || (rest.isOffice && 'office') || !(!rest.isOffice && !rest.isHome) || '' 
 
-    console.log('run' ,rest, selectValue)
     return (
         <form key={rest.key} onSubmit={rest.onSubmitFormHandle} className='border border-neutralsRule rounded-lg py-6 px-6 my-4'>
             <svg onClick={() => {

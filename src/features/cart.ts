@@ -67,21 +67,20 @@ const cartSlice = createSlice({
             })
             .addCase(fetchAddressData.fulfilled, (state, action) => {
                 state.addresses.status = 'succeeded'
-                if (!state.addresses.addresses.length) state.addresses.addresses = [...action.payload]
+                // if (!state.addresses.addresses.length)
+                 state.addresses.addresses = [...action.payload]
             })
             .addCase(fetchAddressData.rejected, (state, action) => {
                 state.addresses.status = 'error'
             })
             .addCase(editAddressData.fulfilled, (state, action) => {
                 const res = state.addresses.addresses.filter(item => item._id !== action.payload._id)
-                console.log(res, state.addresses.addresses)
                 state.addresses.addresses = res.concat([action.payload])
             })
             .addCase(addNewAddressData.fulfilled, (state, action) => {
                 state.addresses.addresses.push(action.payload)
             })
             .addCase(deleteAddressData.fulfilled, (state, action) => {
-                console.log(action.payload)
                 const res = state.addresses.addresses.filter(item => action.payload !== item._id)
                 state.addresses.addresses = res
             })

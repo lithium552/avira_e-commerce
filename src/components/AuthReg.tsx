@@ -27,7 +27,7 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (loginStatus === 'succeeded' && !isReg) navigate('/categories')
+        if (loginStatus === 'succeeded' && !isReg) navigate('/avira_e-commerce/categories')
     }, [loginStatus])
 
 
@@ -46,7 +46,7 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
 
     let content
 
-    if (registerStatus === 'succeeded' && isReg) content = <span>Now you can <Link to='/sing-in' className='text-textColorAcc font-semibold'>login</Link></span>
+    if (registerStatus === 'succeeded' && isReg) content = <span>Now you can <Link to='/avira_e-commerce/sing-in' className='text-textColorAcc font-semibold'>login</Link></span>
     else if (registerStatus === 'error' && isReg) content = <span className='text-textColorAcc'>{errorMessage}</span>
     else if (loginStatus === 'error' && !isReg) content = <span className='text-textColorAcc'>{errorMessage}</span>
 
@@ -393,12 +393,12 @@ const AuthReg = ({ heading, subHeading, isReg, buttonText }: AuthRegProps) => {
                     <hr className='border-1 mt-4 w-full' />
                     {!isReg ? (<div className='text-xs flex gap-2 justify-center mt--4'>
                         <p className='text-textColorTertiary'>Don’t have an account?</p>
-                        <Link to='/sing-up' className='text-textColorAcc font-semibold'>Get Started</Link>
+                        <Link to='/avira_e-commerce/sing-up' className='text-textColorAcc font-semibold'>Get Started</Link>
                     </div>) :
                         (
                             <div className='text-xs flex gap-2 justify-center mt--4'>
                                 <p className='text-textColorTertiary'>Already have an account?</p>
-                                <Link to='/sing-in' className='text-textColorAcc font-semibold'>Login now</Link>
+                                <Link to='/avira_e-commerce/sing-in' className='text-textColorAcc font-semibold'>Login now</Link>
                             </div>
                         )
                     }

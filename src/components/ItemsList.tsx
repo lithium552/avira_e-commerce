@@ -4,7 +4,6 @@ interface ItemsListProps {
     itemsData: Data[]
     emptyText: string
     deleteItem?: (item: Data) => void
-    // (item: Data) => { payload: any; type: `cart/${string}`; } 
 }
 
 const ItemsList: React.FC<ItemsListProps> = ({ ...props}) => {

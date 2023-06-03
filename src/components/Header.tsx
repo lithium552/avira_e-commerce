@@ -107,9 +107,9 @@ const Header = () => {
                 :
                 (
                   <>
-                    <span><Link to='/sing-in'>Login</Link></span>
+                    <span><Link to='/avira_e-commerce/sing-in'>Login</Link></span>
                     <span>/</span>
-                    <span><Link to='/sing-up'>Register</Link></span>
+                    <span><Link to='/avira_e-commerce/sing-up'>Register</Link></span>
                   </>
                 )
               }

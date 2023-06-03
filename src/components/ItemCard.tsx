@@ -28,7 +28,6 @@ const ItemCard = ({ data }: propsItemCard) => {
   const favoriteHandle = (item: Data, isFavorite: boolean) => {
     dispatch(updateProducts({favorites: [item._id], email: user, isFavorite: isFavorite}))
   }
-
   return (
     <>
       {data.length && data.map(item => (

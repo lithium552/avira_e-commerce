@@ -57,11 +57,10 @@ const AddressPage = () => {
         try {
             const fetch = await axios.post('https://avira-api-388212.lm.r.appspot.com/orders',{address: address, items: products, paymentMethod: paymentMethod}, {withCredentials: true})
         } catch (error) {
-            console.log(error)
         }
         localStorage.removeItem('cartItems')
         dispatch(clearCart(null))
-        navigate('/order')
+        navigate('/avira_e-commerce/order')
     }
 
     const onSelectHandle = (e: { target: { value: string } }) => {
@@ -87,10 +86,9 @@ const AddressPage = () => {
     }
 
     useEffect(() => {
-        console.log('useeffect', addressData)
         dispatch(fetchAddressData())
         if (allAddressData) setAddressData(allAddressData)
-    }, [allAddressData])
+    }, [allAddressData.length])
 
     const addNewAddressButtonHandle = () => {
         setIsOpenAddNewForm(true)
@@ -115,8 +113,9 @@ const AddressPage = () => {
                     onSelectHandle={onSelectHandle}
                 />}
                 <section className='flex flex-col gap-6 '>
+                    {!allAddressData.length && <div>You don't have any addresses yet...</div>}
                     {status === 'loading' && <div>Loading...</div>}
-                    {status === 'succeeded' && addressData?.length &&
+                    {status === 'succeeded' && Boolean(addressData?.length) &&
                         addressData.map((address: AddressData) => (
                             <div key={address._id} >
                                 <div className='border border-neutralsRule rounded-lg flex py-6 pr-6'>

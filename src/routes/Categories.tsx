@@ -8,18 +8,18 @@ import { useState, useEffect } from 'react'
 const Categories = () => {
   const [sliderPosition, setSliderPosition] = useState(0)
   const slashedData = useSelector(selectAllSlashedProducts)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSliderPosition(prev => {
-        if(prev < 0) {
-          return ((slashedData.length - 4) * 19)
-        }
-        if(prev >= ((slashedData.length - 4) * 19)) return 0
-        return prev + 19
-      })
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [slashedData.length])
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setSliderPosition(prev => {
+  //       if(prev < 0) {
+  //         return ((slashedData.length - 4) * 19)
+  //       }
+  //       if(prev >= ((slashedData.length - 4) * 19)) return 0
+  //       return prev + 19
+  //     })
+  //   }, 3000)
+  //   return () => clearInterval(interval)
+  // }, [slashedData.length])
   return (
     <main className='mt-8 relative'>
       <section className=' max-w-6xl mx-auto'>

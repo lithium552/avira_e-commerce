@@ -14,7 +14,6 @@ export const userRegister = createAsyncThunk('user/userRegister', async ({ email
 export const userLogin = createAsyncThunk('user/userLogin', async ({ email, password }: {email: string, password: string}) => {
     try {
         const res = await axios.post('https://avira-api-388212.lm.r.appspot.com/user/login', { email: email, password: password }, { withCredentials: true })
-        console.log(res)
         return res.data
     } catch (error) {
         throw new Error(error.response.data.message)

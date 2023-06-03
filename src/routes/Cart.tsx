@@ -18,7 +18,7 @@ const Cart = () => {
     const deleteItemFromCart = (item: Data) => dispatch(deleteFromCart(item))
     const navigate = useNavigate()
     const onSubmitHandle = () => {
-        navigate('/payment')
+        navigate('/avira_e-commerce/payment')
     }
     const user = useSelector(currentUser)
     return (

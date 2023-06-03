@@ -47,7 +47,7 @@ const PaymentPage = () => {
   const submitPayment = () => {
     if (paymentMethod !== 'Credit/Debit Card') {
       localStorage.setItem('paymentMethod', JSON.stringify(paymentMethod))
-      navigate('/address')
+      navigate('/avira_e-commerce/address')
     }
     const res = {
       cardNumber: '',
@@ -79,7 +79,6 @@ const PaymentPage = () => {
       res.exprires = 'Incorrect month input'
     }
     if(new Date(Number( `20${dividedString[1]}`), Number(dividedString[0]) - 1).getTime() < Date.now()) {
-      console.log(new Date(Number(dividedString[1]), Number(dividedString[0]) - 1))
       res.exprires = 'Your card expired'
     }
     if (cardValues.cvv.length < 3) {
