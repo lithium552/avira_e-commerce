@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom/client'
 import Root from './routes/Root'
 import {
   createBrowserRouter,
-  HashRouter,
   redirect,
   RouterProvider,
-  createHashRouter
 } from "react-router-dom"
 import HomePage from './routes/HomePage'
 import Categories from './routes/Categories'

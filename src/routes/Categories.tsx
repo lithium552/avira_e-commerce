@@ -26,7 +26,7 @@ const Categories = () => {
         <div className='grid grid-cols-[1.3fr_1fr_1fr_1fr] grid-rows-[auto_auto_auto] gap-x-8 gap-y-6'>
           <h1 className='text-2xl font-semibold mb-4 text-textColorPrimary row-start-1 row-end-2'>SHOP BY CATEGORIES</h1>
           <div className=' row-start-2 row-end-4 flex items-end relative  h-full'>
-            <img className='object-cover self-stretch' src="./src/assets/shop/image12.png" alt="" />
+            <img className='object-cover self-stretch' src="https://storage.googleapis.com/avira-api-388212.appspot.com/src/shop/image12.png" alt="" />
             <Link to="./men" className='block mb-6 ml-4 absolute'>
               <div className='w-40 h-14 bg-white text-textColorPrimary flex items-center justify-center font-semibold'>
                 <p>MEN</p>
@@ -34,7 +34,7 @@ const Categories = () => {
             </Link>
           </div>
           <div className=' row-start-2 row-end-4 flex items-end relative  h-full'>
-            <img className='object-cover self-stretch' src="./src/assets/shop/image2.png" alt="" />
+            <img className='object-cover self-stretch' src="https://storage.googleapis.com/avira-api-388212.appspot.com/src/shop/image2.png" alt="" />
             <Link to="./women" className='block mb-6 ml-4 absolute'>
               <div className='w-40 h-14 bg-white text-textColorPrimary flex items-center justify-center font-semibold'>
                 <p>WOMEN</p>
@@ -42,7 +42,7 @@ const Categories = () => {
             </Link>
           </div>
           <div className=' row-start-2 row-end-3 flex items-end relative'>
-            <img className='object-cover self-stretch' src="./src/assets/shop/image4.png" alt="" />
+            <img className='object-cover self-stretch' src="https://storage.googleapis.com/avira-api-388212.appspot.com/src/shop/image4.png" alt="" />
             <Link to="./accessories" className='block mb-6 ml-4 absolute'>
               <div className='w-40 h-14 bg-white text-textColorPrimary flex items-center justify-center font-semibold'>
                 <p>ACCESSORIES</p>
@@ -50,7 +50,7 @@ const Categories = () => {
             </Link>
           </div>
           <div className='  row-start-2 row-end-3 flex items-end relative'>
-            <img className='object-cover self-stretch' src="./src/assets/shop/image10.png" alt="" />
+            <img className='object-cover self-stretch' src="https://storage.googleapis.com/avira-api-388212.appspot.com/src/shop/image10.png" alt="" />
             <Link to="./children" className='block mb-6 ml-4 absolute'>
               <div className='w-40 h-14 bg-white text-textColorPrimary flex items-center justify-center font-semibold'>
                 <p>KIDS</p>
@@ -58,7 +58,7 @@ const Categories = () => {
             </Link>
           </div>
           <div className=' row-start-3 row-end-4 relative'>
-            <img className='object-cover self-stretch' src="./src/assets/shop/image5.png" alt="" />
+            <img className='object-cover self-stretch' src="https://storage.googleapis.com/avira-api-388212.appspot.com/src/shop/image5.png" alt="" />
             <Link to="./sneakers" className='block mt-6 ml-4 absolute top-0'>
               <div className='w-40 h-14 bg-white text-textColorPrimary flex items-center justify-center font-semibold'>
                 <p>FOOTWEAR</p>
@@ -66,7 +66,7 @@ const Categories = () => {
             </Link>
           </div>
           <div className=' row-start-3  row-end-4 relative'>
-            <img className='object-cover self-stretch' src="./src/assets/shop/image8.png" alt="" />
+            <img className='object-cover self-stretch' src="https://storage.googleapis.com/avira-api-388212.appspot.com/src/shop/image8.png" alt="" />
             <Link to="./beauty" className='block mt-6 ml-4 absolute top-0'>
               <div className='w-40 h-14 bg-white text-textColorPrimary flex items-center justify-center font-semibold'>
                 <p>BEAUTY</p>
