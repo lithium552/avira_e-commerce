@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import Root from './routes/Root'
 import {
   createBrowserRouter,
+  HashRouter,
   redirect,
   RouterProvider,
   createHashRouter
@@ -23,91 +24,7 @@ import { Provider } from 'react-redux'
 import FavoriteItems from './routes/FavoriteItems'
 import Order from './routes/Order'
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: <Root />,
-//     errorElement: <div>Error</div>,
-//     children: [
-//       {
-//         path: '/avira_e-commerce',
-//         element: <HomePage />,
-//         loader: () => redirect('/avira_e-commerce/categories')
-//       },
-//       {
-//         path: '/avira_e-commerce/orders',
-//         element: <Order />
-//       },
-//       {
-//         path: '/avira_e-commerce/categories',
-//         element: <Categories />,
-//       },
-//       {
-//         path: '/avira_e-commerce/categories/men',
-//         element: <Products />,
-//       },
-//       {
-//         path: '/avira_e-commerce/categories/women',
-//         element: <Products />,
-//       },
-//       {
-//         path: '/avira_e-commerce/categories/sneakers',
-//         element: <Products />,
-//       },
-//       {
-//         path: '/avira_e-commerce/categories/accessories',
-//         element: <Products />,
-//       },
-//       {
-//         path: '/avira_e-commerce/categories/children',
-//         element: <Products />,
-//       },
-//       {
-//         path: '/avira_e-commerce/categories/beauty',
-//         element: <Products />,
-//       },
-//       {
-//         path: '/avira_e-commerce/about-us',
-//         element: <AboutUs />
-//       },
-//       {
-//         path: '/avira_e-commerce/contact',
-//         element: <ContactPage />
-//       },
-//       {
-//         path: '/avira_e-commerce/cart',
-//         element: <Cart />
-//       },
-//       {
-//         path: '/avira_e-commerce/address',
-//         element: <AddressPage />
-//       },
-//       {
-//         path: '/avira_e-commerce/payment',
-//         element: <PaymentPage />
-//       },
-//       {
-//         path: '/avira_e-commerce/order',
-//         element: <OrderPlaced />
-//       },
-//       {
-//         path: '/avira_e-commerce/favorite',
-//         element: <FavoriteItems />
-//       },
-//     ]
-//   },
-//   {
-//     path: '/avira_e-commerce/sing-up',
-//     element: <SingUpPage />
-//   },
-//   {
-//     path: '/avira_e-commerce/sing-in',
-//     element: <SingInPage />
-//   },
-
-// ])
-
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
@@ -190,6 +107,8 @@ const router = createHashRouter([
   },
 
 ])
+
+
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
